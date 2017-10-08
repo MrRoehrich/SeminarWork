@@ -77,7 +77,23 @@
 
 % \biboptions{}
 
+\usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{subcaption}
+\captionsetup{font={small,sf},labelfont={sf}}
+\captionsetup[sub]{font={small,sf},labelfont={sf}}
+\captionsetup[figure]{labelfont={bf},name={Fig.},labelsep=period}
+
+\usepackage{cleveref}
+\newcommand{\secref}[1]{section \ref{#1}}				% Referenz auf Kapitel
+\newcommand{\figref}[1]{\hyperref[#1]{Fig. \ref*{#1}}}				% Referenz auf Abbildung
+\newcommand{\tabref}[1]{table \ref{#1}}				% Referenz auf Tabelle
+\newcommand{\subrefnew}[1]{(\subref*{#1})}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = gray
+}
 
 \journal{Seminar Work CES, RWTH Aachen}
 
@@ -87,20 +103,10 @@
 
 \title{Seminar Paper \\ TITLE TITLE TITLE TITLE}
 \author[label1]{Karsten Paul (333092)}
-\address[label1]{Computational Engineering Science (M.Sc.) \\ RWTH Aachen}
+\address[label1]{Computational Engineering Science (M.Sc.), RWTH Aachen \\ Supervisor: Christopher Zimmermann, M.Sc., AICES RWTH Aachen}
 \ead{karsten.paul@rwth-aachen.de}
 
-
-\begin{abstract}
-Text of abstract. Text of abstract. Text of abstract. Text of abstract. Text of abstract. 
-\end{abstract}
-
-\begin{keyword}
-%% keywords here, in the form: keyword \sep keyword
-Phase Field \sep Fracture mechanics \sep Isogeometric Analysis \sep Brittle fracture \sep Higher-order Models
-%% MSC codes here, in the form: \MSC code \sep code
-%% or \MSC[2008] code \sep code (2000 is the default)
-\end{keyword}
+\input{input/abstract}
 
 \end{frontmatter}
 
@@ -110,28 +116,12 @@ Phase Field \sep Fracture mechanics \sep Isogeometric Analysis \sep Brittle frac
 % \linenumbers
 
 %% main text
-\section{Sample section}
-\label{sec1}
-
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. Sample text. Citation of Einstein paper~ \\\citet{HO_PH_BF}. \\
-\citet{PH_dynBF}
-\subsection{Sample subsection} \label{subsec1}
-
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. 
+\input{input/introduction}
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
-\appendix
+\input{input/appendix}
 
-\section{Section in Appendix} \label{appendix-sec1}
-
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. 
-Sample text. 
 
 %% References
 %%
@@ -157,7 +147,7 @@ Sample text.
 % \bibliographystyle{model5-names}
 % \bibliographystyle{model6-num-names}
 
-\bibliography{literature}
+\bibliography{input/literature}
 
 
 \end{document}
