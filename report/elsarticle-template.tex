@@ -85,7 +85,7 @@
 \captionsetup[figure]{labelfont={bf},name={Fig.},labelsep=period}
 
 \usepackage{cleveref}
-\newcommand{\secref}[1]{section \ref{#1}}				% Referenz auf Kapitel
+\newcommand{\secref}[1]{Section \ref{#1}}				% Referenz auf Kapitel
 \newcommand{\figref}[1]{\hyperref[#1]{Fig. \ref*{#1}}}				% Referenz auf Abbildung
 \newcommand{\tabref}[1]{table \ref{#1}}				% Referenz auf Tabelle
 \newcommand{\subrefnew}[1]{(\subref*{#1})}
@@ -96,7 +96,8 @@
 }
 \usepackage{mathtools}
 \usepackage{xcolor}
-\newcommand{\hl}[1]{\colorbox{yellow}{$\displaystyle#1$}}\usepackage{color,soul}
+\newcommand{\hl}[1]{\colorbox{yellow}{$\displaystyle#1$}}
+%\usepackage{color,soul}
 
 \journal{Seminar Work CES, RWTH Aachen}
 
@@ -121,6 +122,8 @@
 %% main text
 \input{input/introduction}
 \input{input/phasefield_formulation}
+\input{input/numerical_formulation}
+\input{input/conclusion}
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections

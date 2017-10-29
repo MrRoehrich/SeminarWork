@@ -1,0 +1,52 @@
+\section{Numerical formulation} \label{sec:num_formul}
+Formulas \eqref{eq:stress_equil} and \eqref{eq:c2_equil} or \eqref{eq:c4_equil}, respectively represent the strong form of the given problem considering brittle fracture. As in \secref{sec:formul}, first of all brittle fracture is considered and the weak form is derived. Subsequently, the same is shown for ductile fracture. At the end, an Isogeometric Analysis framework as well as a time integration scheme is presented.
+
+For the derivation of the weak form, at first suitable function spaces have to be defined:
+\begin{align} \label{eq:fct_spaces}
+	\begin{aligned}
+		\bm{\mathcal{S}} &= \{\mathbf{u}\left(t\right)\in\left(H^{1}\left(\Omega\right)\right)^{d}|\mathbf{u}\left(t\right)=\mathbf{g} \text{ on }\partial\Omega_{\mathbf{g}}\}, \\
+		\bm{\mathcal{V}} &= \{\mathbf{w}\in\left(H^{1}\left(\Omega\right)\right)^{d}|\mathbf{u}\left(t\right)=\mathbf{0} \text{ on }\partial\Omega_{\mathbf{g}}\}, \\		
+		\tilde{\mathcal{S}}_{n} &= \{c\left(t\right)\in H^{\frac{n}{2}}\left(\Omega\right)\}, \\
+		\tilde{\mathcal{V}}_{n} &= \{q\in H^{\frac{n}{2}}\left(\Omega\right)\}.
+	\end{aligned}
+\end{align}
+So as to get to the weak form, the governing equations have to be multiplied with testing functions, the divergence theorem has to be applied and boundary conditions need to be plugged in. Taking the testing functions from the spaces $\mathbf{\mathcal{V}}$ and $\tilde{\mathcal{V}}_{n}$, respectively, leads to the following weak forms for the second- and fourth-order phase-field theory:
+\begin{align} \label{eq:weak_2}
+\begin{aligned}
+\textbf{n=2:}\quad\text{Find } \mathbf{u}\left(t\right)\in\bm{\mathcal{S}} \text{ and } c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right] \text{ so that } \forall \mathbf{w}\in\bm{\mathcal{V}} \text{ and } \forall q\in\tilde{\mathcal{V}}_{2}: \\
+\left\{\begin{alignedat}{2}
+	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
+	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(4l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} &= \left(1,q\right)_{\Omega} \\
+	\left(\rho\mathbf{u}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\mathbf{u}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega}
+\end{alignedat}\right.
+\end{aligned}
+\end{align}
+
+\begin{equation} \label{eq:weak_4}
+\begin{aligned}
+\textbf{n=4:}\quad\text{Find } \mathbf{u}\left(t\right)\in\bm{\mathcal{S}} \text{ and } c\left(t\right)\in\tilde{\mathcal{S}}_{4},t\in\left[0,T\right] \text{ so that } \forall \mathbf{w}\in\bm{\mathcal{V}} \text{ and } \forall q\in\tilde{\mathcal{V}}_{4}: \\
+\left\{\begin{alignedat}{2}
+	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
+	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(2l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} + \left(l_{0}^{4}\Delta c,\Delta q\right)_{\Omega}&= \left(1,q\right)_{\Omega} \\
+	\left(\rho\mathbf{u}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\mathbf{u}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega}
+\end{alignedat}\right.
+\end{aligned}
+\end{equation}
+with $\left(\cdot,\cdot\right)_{\Omega}$ denoting the inner product with respect to the $L^{2}$-norm.
+
+So as to solve problems \eqref{eq:weak_2} and \eqref{eq:weak_4} it is necessary to choose a finite-dimensional subspaces to the function spaces mentioned in \eqref{eq:fct_spaces}. Let $\bm{\mathcal{S}}^{h}\subset\bm{\mathcal{S}}$, $\bm{\mathcal{V}}^{h}\subset\bm{\mathcal{V}}$, $\tilde{\mathcal{S}}_{n}^{h}\subset\tilde{\mathcal{S}}_{n}$, $\tilde{\mathcal{V}}_{n}^{h}\subset\tilde{\mathcal{V}}_{n}$ and let $N_{A}\left(\mathbf{x}\right)$ denote the basis functions within the Finite Elements approximation. Furthermore, the required functions within an element (with $n_{\text{nodes}}$ number of nodes) are approximated as linear combinations of these basis functions:
+\begin{align} \label{eq:fct_approx}
+	\begin{aligned}
+	\begin{alignedat}{2}
+		\mathbf{u}\left(\mathbf{x},t\right) &\approx \mathbf{u}^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)\mathbf{u}_{A}\left(t\right), \\
+		\mathbf{w}\left(\mathbf{x},t\right) &\approx \mathbf{w}^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)\mathbf{w}_{A}\left(t\right), \\
+		c\left(\mathbf{x},t\right) &\approx c^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)c_{A}\left(t\right), \\
+		q\left(\mathbf{x},t\right) &\approx q^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)q_{A}\left(t\right).
+	\end{alignedat}
+	\end{aligned}
+\end{align}
+In order to obtain the semidiscrete Galerkin form of the problem, these approximations $\left(\cdot\right)\left(\mathbf{x},t\right)\approx\left(\cdot\right)^{h}\left(\mathbf{x},t\right)$ have to be plugged in into \eqref{eq:weak_2} and \eqref{eq:weak_4}. Changing the function spaces in these formulations and inserting \eqref{eq:fct_approx} will lead to the semidiscrete Galerkin form. These forms are not presented explicitly here due to the fact that only the superscript $\left(\cdot\right)^{h}$ has to be written next to the functions and function spaces. Apart from that, they are identical to the weak forms.
+
+$\Gamma$-convergence has already been shown for the second-order phase-field theory but it has not been proved for the fourth-order theory yet. However, \citet{02_PF_HO_brittle} showed that the latter is well behaved in numerical examples. Comments on existing results for the higher-order model will shortly be outlined in \secref{sec:concl}.

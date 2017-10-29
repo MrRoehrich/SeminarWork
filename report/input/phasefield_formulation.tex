@@ -18,11 +18,11 @@ The phase-field model as a diffuse interface model does not introduce discontinu
 
 
 \subsection{Griffith's theory of brittle fracture} \label{sec:formul_Griffith}
-Considering small derformations and deformation gradients, the small strain tensor $\mathbf{\epsilon}\left(\mathbf{x},t\right)$ is given by
+Considering small derformations and deformation gradients, the small strain tensor $\bm{\varepsilon}\left(\mathbf{x},t\right)$ is given by
 \begin{equation}
 	\bm{\varepsilon} = \nabla^{s}\mathbf{u}
 \end{equation}
-where $\cdot^{s}$ refers to the symmetric part. Considering isotropic linear elasticity, the undamaged elastic energy densitiy can be expressed by
+where $\left(\cdot\right)^{s}$ refers to the symmetric part. Considering isotropic linear elasticity, the undamaged elastic energy densitiy can be expressed by
 \begin{equation} \label{eq:psi_e}
 	\Psi_ {e}\left(\bm{\varepsilon}\right) = \dfrac{1}{2}\lambda tr\left(\bm{\varepsilon}\right)^{2}+\mu\bm{\varepsilon}:\bm{\varepsilon}
 \end{equation}
@@ -89,7 +89,7 @@ Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to th
 	\Psi_{n}=c^{2}\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
 \end{equation}
 
-\subsection{Strong and weak form}
+\subsection{Strong, weak and semidiscrete Galerkin form} \label{sec:strong_weak_form}
 The governing equations will be one for enforcing stress equilibrium and the other will govern the phase-field evolution.
 
 Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\bm{\sigma}\mathbf{n}$ with outward-pointing normal vector on $\partial\Omega$, stress equilibrium is enforced by
@@ -125,12 +125,6 @@ It can also be used to model pre-existing cracks or geometrical features \cite{0
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
 \end{alignedat}\right.
 \end{equation}
+The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the next section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
 
-For the derivation of the weak form, at first suitable function spaces have to be defined:
-\begin{align} \label{eq:fct_spaces}
-
-\end{align}
-
-
-
-
+\subsection{Ductile fracture} \label{sec:ductile_frac}
