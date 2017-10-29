@@ -10,17 +10,11 @@ Assuming a two-dimensional plane stress and plane strain model, the virtual crac
 \subsection{Cohesive segments method} \label{sec:intro_cohes}
 In the cohesive segements method the crack is represented by a set of overalpping cohesive segements. Thus, the separation process is limited to a set of discrete planes in 3D or discrete lines in 2D, respectively. As soon as a stress state violates a given fracture criterion, a new segment is created. Such a segment adds a discontinuity to an element during calculations by using the partition-of-unitiy property. For all nodes whose support is cut by a crack into two disjoint pieces or which are crossed by a cohesive segment, respectively an additional equilibrium equation is given and new degrees of freedom are added. The latter do not affect energy conservation and describe the magnitude of the displacement jump. Within the FE-approximation this means, that the approximate displacement field $\mathbf{u}^{h}=\sum_{i}\mathbf{u}_{i}N_{i}$, where $N_{i}$ denote the used shape functions, is enriched by a discontinuitiy function and asymptotic crack tip functions which are necessary if a crack does not begin on an edge. However, all this leads to several disadvantages: Quadrature rules have to be adapted, nodes need to have a variable number of degrees of fredom, there is a high accuracy error, the stress state at the tip of a segment is not well described and there is a problem is the specification of the geometry of the cohesive surfaces. \cite{02_SotA_cohes}\cite{01_SotA_cohes_dyn}
 
-The mentioned sharp interface models are only described in order to give an introduction to the topic and especially, to later compare these methods to phase-field models of dynamic fracture. Particularly this comparison helps in emphasizing the advantages of using such a phase-field model. In the following section, the formulation using the phase-field approximation is described. SECTION 3 (referenz!) focuses on its numerical formulation and ... \textbf{TODO}
+The mentioned sharp interface models are only described in order to give an introduction to the topic and especially, to later compare these methods to phase-field models of dynamic fracture. Particularly this comparison helps in emphasizing the advantages of using such a phase-field model. \hl{\text{In the following section, the formulation using the phase-field approximation is described. SECTION 3 (referenz!) focuses on its numerical formulation and ... }}
 
 %\citet{01_B_LagrMech}.
 %\citet{01_SotA_cohes_dyn} \\
 
-\begin{align}
-\begin{aligned}   \label{1}
-1=1 \\
-2=2 
-\end{aligned}
-\end{align}
-bla ${\eqref{1}}_{1}$
+
 
 

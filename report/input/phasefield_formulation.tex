@@ -33,7 +33,7 @@ According to the energetic approaches to fracture, the critical fracture energy 
 However, Griffith's fracture theory reaches its limits as soon as it is used to predict crack paths, nucleation of new cracks, complicated crack behaviours during kinking and branching. Thus, the problem is formulated in a variational sense which is shown in the following paragraphs. The phase-field approach can then be seen as a regularized version of this variational formulation. \citep{05_PF_ductile}
 
 Newton's laws follow Hamilton's principle stating that the functional 
-\begin{equation}
+\begin{equation} \label{eq:fctal_Hamilton}
 	J\left(q,\dot{q}\right)=\int\limits_{t_{0}}^{t_{1}}\mathcal{L}\left(q,\dot{q},t\right)\mathrm{d}t
 \end{equation} reaches a stationary point. $\mathcal{L}\left(q,\dot{q},t\right)$ describes the so called Lagrangian and $q$ represents generalized coordinates. The motion of the mechanical system from $t_{0}$ to $t_{1}$ is then captured by this formulation \citep{01_B_LagrMech}. In our case, the Lagrangian reads $\mathcal{L}\left(\mathbf{u},\dot{\mathbf{u}},\Gamma\right)=\Psi_{kin}\left(\mathbf{u}\right)-\Psi_{pot}\left(\mathbf{u},\Gamma\right)$. Inserting the introduced cricical fracture energy densitiy $\mathcal{G}_{c}$, the kinetic energy of the body and \eqref{eq:psi_e} leads to
 \begin{equation} \label{eq:lagr}
@@ -90,5 +90,47 @@ Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to th
 \end{equation}
 
 \subsection{Strong and weak form}
+The governing equations will be one for enforcing stress equilibrium and the other will govern the phase-field evolution.
+
+Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\bm{\sigma}\mathbf{n}$ with outward-pointing normal vector on $\partial\Omega$, stress equilibrium is enforced by
+\begin{equation} \label{eq:stress_equil}
+	 \left\{\begin{alignedat}{2}
+\nabla\cdot\bm{\sigma}+\mathbf{b} &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+		\mathbf{u} &= \mathbf{g} && \quad\text{on } \partial\Omega_{\mathbf{g}}\times\left(0,T\right) \\
+		\bm{\sigma}\mathbf{n} &= \mathbf{h} && \quad\text{on } \partial\Omega_{\mathbf{h}}\times\left(0,T\right) \\
+		\mathbf{u} &= \mathbf{u}_{0} && \quad\text{on } \Omega\times0 \\
+		\dot{\mathbf{u}} &= \mathbf{v}_{0} && \quad\text{on } \Omega\times0.
+  \end{alignedat}\right.
+\end{equation}
+$\eqref{eq:stress_equil}_{1}$ represents the local form of the linear momentum balance with $\bm{\sigma}=c^{2}\frac{\partial\Psi_{e}^{+}}{\partial\bm{\varepsilon}}+\frac{\partial\Psi_{e}^{-}}{\partial\bm{\varepsilon}}$.
+
+As described in \secref{sec:formul_Griffith}, the Euler-Lagrange Equation can be used to find a minimizer of \eqref{eq:fctal_Hamilton}. Plugging \eqref{eq:crack_dens_fctals} and \eqref{eq:el_energy} into \eqref{eq:lagr} as well as using \eqref{eq:surf_int_approx} makes the use of the ELE possible. For this case, $q\hat{=}c$ and $\frac{\mathrm{d}}{\mathrm{d}t}\hat{=}\frac{\mathrm{d}}{\mathrm{d}\mathbf{x}}$. All this together lead to the governing equations for the evolution of the phase-field, namely $\eqref{eq:c2_equil}_{1}$ for the second- and $\eqref{eq:c4_equil}_{1}$ for the fourth-order phase-field theory. As can be seen in these equations, $\Psi_{e}^{+}$ has been replaced by strain histroy field $\mathcal{H}$ enforcing the irreversibility condition $\Gamma\left(t\right)\subseteq\Gamma\left(t+\Delta t\right), \forall \Delta t>0$ in the strong form. This field satisfies the Kuhn-Tucker conditions for loading and unloading \cite{01_PF_dyn_brittle}:
+\begin{equation} \label{eq:KuhnTucker}
+	\Psi_{e}^{+}-\mathcal{H}\leq0, \quad \dot{\mathcal{H}}\geq0, \quad \dot{\mathcal{H}}\left(\Psi_{e}^{+}-\mathcal{H}\right)=0.
+\end{equation}
+It can also be used to model pre-existing cracks or geometrical features \cite{01_PF_dyn_brittle}.
+ \hl{\text{Boundary-Conditions!}}
+\begin{equation} \label{eq:c2_equil}
+		 \left\{\begin{alignedat}{2}
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\hl{\nabla c\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
+\end{alignedat}\right.
+\end{equation}
+\begin{equation} \label{eq:c4_equil}
+		 \left\{\begin{alignedat}{2}
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right)=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
+\end{alignedat}\right.
+\end{equation}
+
+For the derivation of the weak form, at first suitable function spaces have to be defined:
+\begin{align} \label{eq:fct_spaces}
+
+\end{align}
+
+
 
 
