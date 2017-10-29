@@ -26,7 +26,7 @@ where $\cdot^{s}$ refers to the symmetric part. Considering isotropic linear ela
 \begin{equation} \label{eq:psi_e}
 	\Psi_ {e}\left(\bm{\varepsilon}\right) = \dfrac{1}{2}\lambda tr\left(\bm{\varepsilon}\right)^{2}+\mu\bm{\varepsilon}:\bm{\varepsilon}
 \end{equation}
-using the Lam\'{e} constants $\lambda$ and $\mu$.
+using the Lam\'{e} constants $\lambda$ and $\mu$ and $\left(\cdot\right):\left(\cdot\right)$ denoting the double contraction.
 
 According to the energetic approaches to fracture, the critical fracture energy density $\mathcal{G}_{c}$ defines the energy being necessary to create a unit area of fracture surface. Since translation of cracks shall be forbidden and extension, branching and merging shall be allowed, there is an irreversibility condition stating $\Gamma\left(t\right)\subseteq\Gamma\left(t+\Delta t\right), \forall \Delta t>0$.
 
@@ -50,4 +50,45 @@ For a given $\mathcal{L}=\mathcal{L}\left(q,\dot{q},\ddot{q}, t\right)$ this dif
 \citep{01_B_LagrMech}. So as to circumvent problems of algorithmically tracking the propagating dicontinuity $\Gamma$, the phase-field approach will be presented in the next chapters which regularizes the just mentioned variational formulation.
 
 \subsection{Phase-field approximation} \label{sec:ph_approx}
-As can be seen in \figref{fig:bodies}\subrefnew{fig:body_2} the fracture surface $\Gamma$ is approximated by a scalar valued field $c\left(\mathbf{x},t\right)$. This field is called the phase-field. Values of $c=1$ represent regions away from the crack (undamaged material) whereas $c=0$ symbolizes the crack. Now, in \eqref{eq:lagr} the surface integral and thus, the need for tracking the crack can be eliminated.
+As can be seen in \figref{fig:bodies}\subrefnew{fig:body_2} the fracture surface $\Gamma$ is approximated by a scalar valued field $c\left(\mathbf{x},t\right)$. This field is called the phase-field. Values of $c=1$ represent regions away from the crack (undamaged material) whereas $c=0$ symbolizes the crack. Now, in \eqref{eq:lagr} the surface integral and thus, the need for tracking the crack can be eliminated. The approximation reads as follows:
+\begin{equation} \label{eq:surf_int_approx}
+	\int\limits_{\Gamma}\mathcal{G}_{c}\mathrm{d}\Gamma \approx \int\limits_{\Omega}\mathcal{G}_{c}\Gamma_{c,n}\mathrm{d}\Omega.
+\end{equation}
+Obviously, the surface integral can now be approximately calculated without knowing or tracking the fracture surface. \eqref{eq:surf_int_approx} represents the fracture surface energy. The quantity $\Gamma_{c,n}$ is called the crack density functional which depends on a parameter $l_{0}$, the phase-field $c\left(\mathbf{x},t\right)$ and its spatial derivatives up to order $\frac{n}{2}$ ($\frac{\partial c}{\partial \mathbf{x}},..,\frac{\partial^{\frac{n}{2}} c}{\partial \mathbf{x}^{\frac{n}{2}}}$). $l_{0}\in\mathbb{R}^{+}$ represents a parameter controlling the width of the approximation of the crack (see \figref{fig:bodies}\subrefnew{fig:body_2}). It could be seen as a numerical regularization parameter or as an material parameter. \citet{01_PF_dyn_brittle} showed that a critical stress level $\sigma_{c}$ depends on $l_{0}$. Thus, this parameter is here seen as a material property. For a more detailed discussion it refered to the investigations of \citet{07_PF_l0}.
+
+The notation $\Gamma_{c,n}$ already presages that $n$ determines the order of the approximation. \citet{02_PF_HO_brittle} presented a so called \textit{second-} and \textit{fourth-order phase-field theory}. For $n=2$ the crack density functional introduced by \citet{08_PF_Gammac2} is used where as for $n=4$ a new functional has been established:
+\begin{align}
+	\begin{aligned}   \label{eq:crack_dens_fctals}
+		\Gamma_{c,2} &= \dfrac{1}{4l_{0}}\left[\left(c-1\right)^{2}+4l_{0}^{2}|\nabla c|^{2}\right], \\
+		\Gamma_{c,4} &= \dfrac{1}{4l_{0}}\left[\left(c-1\right)^{2}+2l_{0}^{2}|\nabla c|^{2}+l_{0}^{4}\left(\Delta c\right)^{2}\right].
+	\end{aligned}
+\end{align}
+These formulations have been analytically analysed. So as to keep things short, it is referred to the work by \citet{02_PF_HO_brittle} for more detailed information. Only one important aspect is mentioned here: ${\eqref{eq:crack_dens_fctals}}_{1}$ is well-posed variationally for all $c\in H^{1}\left(\Omega\right)$ and solutions will generally not show greater regularity. Thus, ${\eqref{eq:crack_dens_fctals}}_{2}$ has been introduced so as to provide higher regularity in the solutions.
+
+\subsection{Energy approximation} \label{sec:energy_approx}
+In the failure zone there is a loss of material stiffness. So as to model this phenomena the elastic energy is \"split\" into contributions from tensile and compressive deformations\footnote{Originally, a parameter $k$ or $\eta<<1$ has been introduced by \citet{09_PF_k} into this equation so as to avoid ill-posedness. However, \citet{01_PF_dyn_brittle} found out that there is no necessity of setting $k>0$. Thus, the derivation of the governing evolution equations all include that $k=0$.}
+\begin{equation} \label{eq:el_energy}
+	\Psi_{e}\left(\bm{\varepsilon},c\right)=g\left(c\right) \Psi_{e}^{+}\left(\bm{\varepsilon}\right)+\Psi_{e}^{-}\left(\bm{\varepsilon}\right)
+\end{equation}
+with the so called degradation function $g\left(c\right)=c^{2}$. At a later point in this work there will be more information on this function. This splitting is achieved with the help of spectral decomposition of the strain:
+\begin{align} \label{eq:spectr_decomp}
+	\begin{aligned}
+		\bm{\varepsilon} = \mathbf{P}\bm{\Lambda}\mathbf{P}^{T} \quad \Rightarrow \quad \bm{\varepsilon}^{+} = \mathbf{P}\bm{\Lambda}^{+}\mathbf{P}^{T},  \bm{\varepsilon}^{-} = \mathbf{P}\bm{\Lambda}^{-}\mathbf{P}^{T}, \\
+		\bm{\Lambda}^{+}=diag\left(\left<\lambda_{1}\right>,\left<\lambda_{2}\right>,\left<\lambda_{3}\right>\right), \quad \left<x\right>=\begin{cases}x, &x>0 \\ 0, & x\leq0\end{cases}.
+	\end{aligned}
+\end{align}
+$\bm{\Lambda}^{-}$ is analogously                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          defined. $\lambda_{i}\in\sigma\left(\bm{\varepsilon}\right),i\in\{1,2,3\}$ denote the eigenvalues of the strain tensor. Plugging \eqref{eq:spectr_decomp} into \eqref{eq:psi_e} leads to the energy contributions from tensile and compressive deformations:
+\begin{align} \label{eq:psi_e+-}
+	\begin{aligned}
+		\Psi_{e}^{+}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left<tr\left(\bm{\varepsilon}\right)\right>^{2}+\mu tr\left[\left(\bm{\varepsilon}^{+}\right)\right], \\
+		\Psi_{e}^{-}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left(tr\left(\bm{\varepsilon}\right)-\left<tr\left(\bm{\varepsilon}\right)\right>\right)^{2}+\mu tr\left[\left(\bm{\varepsilon}-\bm{\varepsilon}^{+}\right)\right].
+	\end{aligned}
+\end{align}
+Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy given by
+\begin{equation} \label{eq:Helmholtz}
+	\Psi_{n}=c^{2}\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
+\end{equation}
+
+\subsection{Strong and weak form}
+
+
