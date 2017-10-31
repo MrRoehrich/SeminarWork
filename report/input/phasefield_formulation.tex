@@ -66,7 +66,7 @@ The notation $\Gamma_{c,n}$ already presages that $n$ determines the order of th
 These formulations have been analytically analysed. So as to keep things short, it is referred to the work by \citet{02_PF_HO_brittle} for more detailed information. Only one important aspect is mentioned here: ${\eqref{eq:crack_dens_fctals}}_{1}$ is well-posed variationally for all $c\in H^{1}\left(\Omega\right)$ and solutions will generally not show greater regularity. Thus, ${\eqref{eq:crack_dens_fctals}}_{2}$ has been introduced so as to provide higher regularity in the solutions.
 
 \subsection{Energy approximation} \label{sec:energy_approx}
-In the failure zone there is a loss of material stiffness. So as to model this phenomena the elastic energy is \"split\" into contributions from tensile and compressive deformations\footnote{Originally, a parameter $k$ or $\eta<<1$ has been introduced by \citet{09_PF_k} into this equation so as to avoid ill-posedness. However, \citet{01_PF_dyn_brittle} found out that there is no necessity of setting $k>0$. Thus, the derivation of the governing evolution equations all include that $k=0$.}
+In the failure zone there is a loss of material stiffness. So as to model this phenomena the elastic energy is split into contributions from tensile and compressive deformations\footnote{Originally, a parameter $k$ or $\eta<<1$ has been introduced by \citet{09_PF_k} into this equation so as to avoid ill-posedness. However, \citet{01_PF_dyn_brittle} found out that there is no necessity of setting $k>0$. Thus, the derivation of the governing evolution equations all include that $k=0$.}
 \begin{equation} \label{eq:el_energy}
 	\Psi_{e}\left(\bm{\varepsilon},c\right)=g\left(c\right) \Psi_{e}^{+}\left(\bm{\varepsilon}\right)+\Psi_{e}^{-}\left(\bm{\varepsilon}\right)
 \end{equation}
@@ -129,4 +129,37 @@ It can also be used to model pre-existing cracks or geometrical features \cite{0
 The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the next section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
 
 \subsection{Ductile fracture} \label{sec:ductile_frac}
+So as to motivate this section, at first the differences between the modelling of brittle and ductile fracture are examined. Up to this point of this paper, linear elasticity has been assumed. In this context, brittle fracture has been formulated in a variational way. By introducing the phase-field approximation, a regularized formulation of the variational one has been established. The corresponding stress-strain-curves and the procedure are illustrated in \figref{fig:elastic}.
+\begin{table}[!ht]
+	\begin{center}
+	\begin{tabular}{|c||c|c|c|}
+		\cline{2-4}
+			\multicolumn{1}{c||}{}& Linear elasticity & \multicolumn{2}{c|}{Brittle fracture} \\
+ 		\hline\hline
+			\rotatebox[origin=c]{90}{ Process} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/elastic_1}} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/elastic_2}} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/elastic_3}} \\
+		\hline
+			\rotatebox[origin=c]{90}{\small{ Formulation }} & $E\left(\mathbf{u}\right)$ & \begin{tabular}[c]{@{}c@{}}Variational formulation\\of brittle fracture\\$E\left(\mathbf{u},\Gamma\right)$\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Phase-field formulation\\($\hat{=}$regularized version)\\$E\left(\mathbf{u},c\right)$\end{tabular} \\
+		\hline
+	\end{tabular}
+	\end{center}
+\captionof{figure}{Brittle fracture: Process from linear elasticity over the variational formulation towards the phase-field approximation. \cite{06_PF_ductile}} \label{fig:elastic}
+\end{table}
+The variational formulation has been well established. Thus, the regularized version using the phase-field approximation could be found. As the dashed lines in \figref{fig:plastic} reveal, there is no variational formulation of ductile fracture found yet. Thus, the foundation of the regularized version is not as easy as for brittle fracture.
+
+\begin{table}
+	\begin{center}
+	\begin{tabular}{|c||c|c|c|}
+		\cline{2-4}
+			\multicolumn{1}{c||}{}& Plasticity & \multicolumn{2}{c|}{Ductile fracture} \\
+ 		\hline\hline
+			\rotatebox[origin=c]{90}{ Process} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/plastic_1}} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/plastic_2}} & \raisebox{-.5\height}{\includegraphics[scale=0.3]{data/plastic_3}} \\
+		\hline
+			\rotatebox[origin=c]{90}{\small{ Formulation }} & $E\left(\bm{\varepsilon}^{e},\bm{\varepsilon}^{p},\alpha\right)$ & \begin{tabular}[c]{@{}c@{}}Variational formulation\\of ductile fracture\\$E\left(\bm{\varepsilon}^{e},\bm{\varepsilon}^{p},\alpha,\Gamma\right)$\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Phase-field formulation\\($\hat{=}$regularized version)\\$E\left(\bm{\varepsilon}^{e},\bm{\varepsilon}^{p},\alpha,c\right)$\end{tabular} \\
+		\hline
+	\end{tabular}
+	\end{center}
+\captionof{figure}{Ductile fracture: Process from plasticity towards the phase-field approximation. The variational formulation has not been established yet. \cite{06_PF_ductile}} \label{fig:plastic}
+\end{table}
+
+
 \hl{TODO}
