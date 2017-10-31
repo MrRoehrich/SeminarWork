@@ -1,19 +1,21 @@
 \section{Numerical formulation} \label{sec:num_formul}
 Formulas \eqref{eq:stress_equil} and \eqref{eq:c2_equil} or \eqref{eq:c4_equil}, respectively represent the strong form of the given problem considering brittle fracture. As in \secref{sec:formul}, first of all brittle fracture is considered and the weak form is derived. Subsequently, the same is shown for ductile fracture. At the end, an Isogeometric Analysis framework as well as a time integration scheme is presented.
 
+\subsection{Weak and semidiscrete Galerkin form} \label{sec:weak_Gal_form}
 For the derivation of the weak form, at first suitable function spaces have to be defined:
-\begin{align} \label{eq:fct_spaces}
+\begin{equation} \label{eq:fct_spaces}
 	\begin{aligned}
 		\bm{\mathcal{S}} &= \{\mathbf{u}\left(t\right)\in\left(H^{1}\left(\Omega\right)\right)^{d}|\mathbf{u}\left(t\right)=\mathbf{g} \text{ on }\partial\Omega_{\mathbf{g}}\}, \\
 		\bm{\mathcal{V}} &= \{\mathbf{w}\in\left(H^{1}\left(\Omega\right)\right)^{d}|\mathbf{u}\left(t\right)=\mathbf{0} \text{ on }\partial\Omega_{\mathbf{g}}\}, \\		
 		\tilde{\mathcal{S}}_{n} &= \{c\left(t\right)\in H^{\frac{n}{2}}\left(\Omega\right)\}, \\
 		\tilde{\mathcal{V}}_{n} &= \{q\in H^{\frac{n}{2}}\left(\Omega\right)\}.
 	\end{aligned}
-\end{align}
+\end{equation}
 So as to get to the weak form, the governing equations have to be multiplied with testing functions, the divergence theorem has to be applied and boundary conditions need to be plugged in. Taking the testing functions from the spaces $\mathbf{\mathcal{V}}$ and $\tilde{\mathcal{V}}_{n}$, respectively, leads to the following weak forms for the second- and fourth-order phase-field theory:
-\begin{align} \label{eq:weak_2}
+
+\textbf{n=2:}$\quad$ Find $\mathbf{u}\left(t\right)\in\bm{\mathcal{S}}$ and $c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right]$ so that $\forall \mathbf{w}\in\bm{\mathcal{V}}$ and $\forall q\in\tilde{\mathcal{V}}_{2}$:
+\begin{equation} \label{eq:weak_2}
 \begin{aligned}
-\textbf{n=2:}\quad\text{Find } \mathbf{u}\left(t\right)\in\bm{\mathcal{S}} \text{ and } c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right] \text{ so that } \forall \mathbf{w}\in\bm{\mathcal{V}} \text{ and } \forall q\in\tilde{\mathcal{V}}_{2}: \\
 \left\{\begin{alignedat}{2}
 	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
 	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(4l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} &= \left(1,q\right)_{\Omega} \\
@@ -21,11 +23,11 @@ So as to get to the weak form, the governing equations have to be multiplied wit
 	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega}
 \end{alignedat}\right.
 \end{aligned}
-\end{align}
+\end{equation}
 
+\textbf{n=4:}$\quad$ Find $\mathbf{u}\left(t\right)\in\bm{\mathcal{S}}$ and $c\left(t\right)\in\tilde{\mathcal{S}}_{4},t\in\left[0,T\right]$ so that $\forall \mathbf{w}\in\bm{\mathcal{V}}$ and $\forall q\in\tilde{\mathcal{V}}_{4}$:
 \begin{equation} \label{eq:weak_4}
 \begin{aligned}
-\textbf{n=4:}\quad\text{Find } \mathbf{u}\left(t\right)\in\bm{\mathcal{S}} \text{ and } c\left(t\right)\in\tilde{\mathcal{S}}_{4},t\in\left[0,T\right] \text{ so that } \forall \mathbf{w}\in\bm{\mathcal{V}} \text{ and } \forall q\in\tilde{\mathcal{V}}_{4}: \\
 \left\{\begin{alignedat}{2}
 	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
 	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(2l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} + \left(l_{0}^{4}\Delta c,\Delta q\right)_{\Omega}&= \left(1,q\right)_{\Omega} \\
@@ -37,7 +39,7 @@ So as to get to the weak form, the governing equations have to be multiplied wit
 with $\left(\cdot,\cdot\right)_{\Omega}$ denoting the inner product with respect to the $L^{2}$-norm.
 
 So as to solve problems \eqref{eq:weak_2} and \eqref{eq:weak_4} it is necessary to choose a finite-dimensional subspaces to the function spaces mentioned in \eqref{eq:fct_spaces}. Let $\bm{\mathcal{S}}^{h}\subset\bm{\mathcal{S}}$, $\bm{\mathcal{V}}^{h}\subset\bm{\mathcal{V}}$, $\tilde{\mathcal{S}}_{n}^{h}\subset\tilde{\mathcal{S}}_{n}$, $\tilde{\mathcal{V}}_{n}^{h}\subset\tilde{\mathcal{V}}_{n}$ and let $N_{A}\left(\mathbf{x}\right)$ denote the basis functions within the Finite Elements approximation. Furthermore, the required functions within an element (with $n_{\text{nodes}}$ number of nodes) are approximated as linear combinations of these basis functions:
-\begin{align} \label{eq:fct_approx}
+\begin{equation} \label{eq:fct_approx}
 	\begin{aligned}
 	\begin{alignedat}{2}
 		\mathbf{u}\left(\mathbf{x},t\right) &\approx \mathbf{u}^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)\mathbf{u}_{A}\left(t\right), \\
@@ -46,7 +48,90 @@ So as to solve problems \eqref{eq:weak_2} and \eqref{eq:weak_4} it is necessary 
 		q\left(\mathbf{x},t\right) &\approx q^{h}\left(\mathbf{x},t\right) &&= \sum\limits_{A=1}^{n_{\text{nodes}}}N_{A}\left(\mathbf{x}\right)q_{A}\left(t\right).
 	\end{alignedat}
 	\end{aligned}
-\end{align}
+\end{equation}
 In order to obtain the semidiscrete Galerkin form of the problem, these approximations $\left(\cdot\right)\left(\mathbf{x},t\right)\approx\left(\cdot\right)^{h}\left(\mathbf{x},t\right)$ have to be plugged in into \eqref{eq:weak_2} and \eqref{eq:weak_4}. Changing the function spaces in these formulations and inserting \eqref{eq:fct_approx} will lead to the semidiscrete Galerkin form. These forms are not presented explicitly here due to the fact that only the superscript $\left(\cdot\right)^{h}$ has to be written next to the functions and function spaces. Apart from that, they are identical to the weak forms.
 
 $\Gamma$-convergence has already been shown for the second-order phase-field theory but it has not been proved for the fourth-order theory yet. However, \citet{02_PF_HO_brittle} showed that the latter is well behaved in numerical examples. Comments on existing results for the higher-order model will shortly be outlined in \secref{sec:concl}.
+
+\hl{weak and semidiscrete Galerkin form for ductile fracture}
+
+\subsection{Spatial discretization} \label{sec:space_discr}
+
+
+\subsection{Time discretization} \label{sec:time_discr}
+Since this work deals with dynamic fracture, there is a need for a time integration scheme. Here, a monolithic gernalized-$\alpha$ method is presented. This has been proposed by \citet{10_PF_genAlpha} in 1993. Advantages of this method are its second order accuracy as well as unconditonal stability provided that the parameters are well chosen. It is an implicit method which is outlined in this section. The notation used here is taken from the work of \citet{01_PF_dyn_brittle}.
+
+On the basis of $\eqref{eq:weak_2}_{1}$ or $\eqref{eq:weak_4}_{1}$, respectively, and \eqref{eq:fct_approx}, let the residual vectors for the displacement be defined as
+\begin{equation} \label{eq:res_vecs_u}
+	\begin{aligned}
+		\mathbf{R}^{u}&=\{R_{A,i}^{u}\}, \\
+		R_{A,i}^{u} &= \left(\mathbf{h},N_{A}\mathbf{e}_{i}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},N_{A}\mathbf{e}_{i}\right)_{\partial\Omega_{\mathbf{g}}} - \left(\rho\ddot{\mathbf{u}}^{h},N_{A}\mathbf{e}_{i}\right)_{\Omega}-\left(\sigma_{jk},B_{A}^{ijk}\right)_{\Omega},
+	\end{aligned}
+\end{equation}
+with $i$'th Euclidean basis vector $\mathbf{e}_{i}$ and
+\begin{equation}
+	B_{A}^{ijk}=\frac{1}{2}\left(\frac{\partial N_{A}}{\partial x_{j}}\delta_{ik}+\frac{\partial N_{A}}{\partial x_{k}}\delta_{ij}\right)
+\end{equation}
+so that $\epsilon_{ijk}=\sum_{A}B_{A}^{ijk}d_{A,i}$.\footnote{Note that Einstein's summation convention on repeated indices is used here.}
+
+For the second-order phase-field theory, the residual vectors based on $\eqref{eq:weak_2}_{2}$ are given by
+\begin{equation} \label{eq:res_vecs_c2}
+	\begin{aligned}
+		\mathbf{R}^{c}&=\{R_{A,i}^{c}\}, \\
+		R_{A,i}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(4l_{0}^{2}\frac{\partial c^{h}}{\partial x_{i}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega}.
+	\end{aligned}
+\end{equation}
+
+For the fourth-order phase-field theory, these residual vectors based on $\eqref{eq:weak_4}_{2}$ change to:
+\begin{equation} \label{eq:res_vecs_c4}
+	\begin{aligned}
+		\mathbf{R}^{c}&=\{R_{A,i}^{c}\}, \\
+		R_{A,i}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(2l_{0}^{2}\frac{\partial c^{h}}{\partial x_{i}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega} - \left(l_{0}^{4}\frac{\partial^{2}c^{h}}{\partial x_{ii}^{2}},\frac{\partial^{2}N_{A}}{\partial x_{jj}^{2}}\right)_{\Omega}.
+	\end{aligned}
+\end{equation}
+
+\hl{check both residual vectors for c! Use Einstein summation convention here?}
+
+Considering time step $n$, time step size $\Delta t = t_{n+1}-t_{n}$, parameters $\alpha_{f},\alpha_{m},\beta,\gamma$ as well as vectors $\mathbf{d}_{n}$ and $\bm{\Phi}_{n}$ for the control variable degrees-of-freedom of the displacements and phase-field, $\textbf{v}_{n}=\dot{\mathbf{d}}_{n}$ and $\mathbf{a}_{n}=\ddot{\mathbf{d}}_{n}$ are defined. The method then reads as follows:
+
+Given $\mathbf{d}_{n}$, $\mathbf{v}_{n}$ and $\mathbf{a}_{n}$. Find $\mathbf{d}_{n+1}$, $\mathbf{v}_{n+1}$, $\mathbf{a}_{n+1}$, $\mathbf{d}_{n+\alpha_{f}}$, $\mathbf{v}_{n+\alpha_{f}}$, $\mathbf{a}_{n+\alpha_{m}}$ and $\bm{\Phi}_{n+1}$ so that:
+\begin{equation} \label{eq:gen_alpha}
+\begin{aligned}
+\begin{alignedat}{1}
+        \mathbf{R}^{u}\left(\mathbf{d}_{n+\alpha_{f}},\mathbf{v}_{n+\alpha_{f}},\mathbf{a}_{n+\alpha_{m}},\mathbf{\Phi}_{n+1}\right) &= 0, \\
+    	\mathbf{R}^{c}\left(\mathbf{d}_{n+\alpha_{f}},\mathbf{\Phi}_{n+1}\right) &= 0, \\
+        \mathbf{d}_{n+\alpha_{f}} &= \mathbf{d}_{n}+\alpha_{f}\left(\mathbf{d}_{n+1}-\mathbf{d}_{n}\right), \\      
+        \mathbf{v}_{n+\alpha_{f}} &= \mathbf{v}_{n}+\alpha_{f}\left(\mathbf{v}_{n+1}-\mathbf{v}_{n}\right), \\
+        \mathbf{a}_{n+\alpha_{m}} &= \mathbf{a}_{n}+\alpha_{m}\left(\mathbf{a}_{n+1}-\mathbf{a}_{n}\right), \\
+        \mathbf{v}_{n+1} &= \mathbf{v}_{n}+\Delta t\left(\left(1-\gamma\right)\mathbf{a}_{n}+\gamma\mathbf{a}_{n+1}\right), \\  
+        \mathbf{d}_{n+\alpha f} &= \mathbf{d}_{n}+\alpha_{f}\left(\mathbf{d}_{n+1}-\mathbf{d}_{n}\right).
+\end{alignedat}
+\end{aligned}
+\end{equation}
+These equations directly show that this method is an implicit one. Thus, at each time step a Newton-Raphson iteration is required so as to solve the nonlinear equations \eqref{eq:gen_alpha}:
+
+Until convergence is reached, solve the linearized system:
+\begin{equation} \label{eq:NewtonRaphson}
+	\begin{aligned}
+	\begin{alignedat}{2}
+		\dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\Phi_{n+1}}\Delta\bm{\Phi} &&= -\mathbf{R}_{i}^{u}, \\
+		\dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\Phi_{n+1}}\Delta\bm{\Phi} &&= -\mathbf{R}_{i}^{c},
+	\end{alignedat}
+	\end{aligned}
+\end{equation}
+with $i$ denoting the current Newton-Raphson iteration and $\mathbf{R}_{i}^{u}$ and $\mathbf{R}_{i}^{c}$ being the current residuals (see $\eqref{eq:gen_alpha}_{1-2}$). Following \citet{01_PF_dyn_brittle}, convergence can be for instance defined by
+\begin{equation} \label{eq:conv_cond}
+	\max\{\frac{||\mathbf{R}_{i}^{u}||_{L^{2}}}{||\mathbf{R}_{0}^{u}||_{L^{2}}},\frac{||\mathbf{R}_{i}^{c}||_{L^{2}}}{||\mathbf{R}_{0}^{c}||_{L^{2}}}\}\leq tol
+\end{equation}
+with $tol$ for example set to $10^{-4}$.
+
+According to \citet{10_PF_genAlpha} the parameters should be chosen as follows:
+\begin{equation}
+	\begin{aligned}
+		\alpha_{f} &= \frac{1}{\rho_{\infty}+1}, \\
+		\alpha_{m} &= \frac{2-\rho_{\infty}}{\rho_{\infty}+1}, \\
+		\beta &= \frac{1}{4}\left(1+\alpha_{m}-\alpha_{f}\right)^{2}, \\
+		\gamma &= \frac{1}{2}+\alpha_{m}-\alpha_{f},
+	\end{aligned}
+\end{equation}
+with spectral radius $\rho_{\infty}$ of the amplification matrix at $\Delta t=\infty$. Thus, second-order accuracy and unconditional stability are reached for a second-order linear problem. \hl{rho_infty=??}

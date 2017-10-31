@@ -89,7 +89,7 @@ Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to th
 	\Psi_{n}=c^{2}\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
 \end{equation}
 
-\subsection{Strong, weak and semidiscrete Galerkin form} \label{sec:strong_weak_form}
+\subsection{Strong form} \label{sec:strong_form}
 The governing equations will be one for enforcing stress equilibrium and the other will govern the phase-field evolution.
 
 Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\bm{\sigma}\mathbf{n}$ with outward-pointing normal vector on $\partial\Omega$, stress equilibrium is enforced by
@@ -109,6 +109,7 @@ As described in \secref{sec:formul_Griffith}, the Euler-Lagrange Equation can be
 	\Psi_{e}^{+}-\mathcal{H}\leq0, \quad \dot{\mathcal{H}}\geq0, \quad \dot{\mathcal{H}}\left(\Psi_{e}^{+}-\mathcal{H}\right)=0.
 \end{equation}
 It can also be used to model pre-existing cracks or geometrical features \cite{01_PF_dyn_brittle}.
+
  \hl{\text{Boundary-Conditions!}}
 \begin{equation} \label{eq:c2_equil}
 		 \left\{\begin{alignedat}{2}
@@ -128,3 +129,4 @@ It can also be used to model pre-existing cracks or geometrical features \cite{0
 The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the next section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
 
 \subsection{Ductile fracture} \label{sec:ductile_frac}
+\hl{TODO}
