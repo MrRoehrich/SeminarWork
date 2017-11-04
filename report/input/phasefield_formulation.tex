@@ -84,7 +84,7 @@ $\bm{\Lambda}^{-}$ is analogously                                               
 		\Psi_{e}^{-}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left(tr\left(\bm{\varepsilon}\right)-\left<tr\left(\bm{\varepsilon}\right)\right>\right)^{2}+\mu tr\left[\left(\bm{\varepsilon}-\bm{\varepsilon}^{+}\right)\right].
 	\end{aligned}
 \end{align}
-Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy given by
+The assumption here is that the sign of the principal straings determine tensile and compressive contributions. Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy given by
 \begin{equation} \label{eq:Helmholtz}
 	\Psi_{n}=c^{2}\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
 \end{equation}
@@ -161,5 +161,26 @@ The variational formulation has been well established. Thus, the regularized ver
 \captionof{figure}{Ductile fracture: Process from plasticity towards the phase-field approximation. The variational formulation has not been established yet. \cite{06_PF_ductile}} \label{fig:plastic}
 \end{table}
 
+\citet{06_PF_ductile} proposes a method similar to the one presented here for brittle fracture. The major change lies in the Helmholtz free energy (see \eqref{eq:Helmholtz}) which is replaced by
+\begin{equation} \label{eq:Helmholtz_ductile1}
+	\Psi_{n} = g\left(c,p\right)\Psi_{e}^{+}\left(\bm{\varepsilon}\right)+\Psi_{e}^{-}\left(\bm{\varepsilon}\right)+\Psi_{p}\left(\alpha\right)+\mathcal{G}_{c}\Gamma_{c,n}
+\end{equation}
+with the new degradation function $g\left(c,p\right)c^{2p}+\eta$ and $p=\frac{\epsilon_{eq}^{p}}{\epsilon_{eq,crit}^{p}}$, $\epsilon_{eq}^{p}\left(t\right)=\sqrt{\frac{2}{3}}\int\limits_{0}^{t}\sqrt{\dot{\bm{\varepsilon}}:\dot{\bm{\varepsilon}}}\mathrm{d}t$. The plastic energy density function considering linear isotropic hardening reads $\Psi_{p}\left(\alpha\right)=\sigma_{y}\alpha+\frac{1}{2}h\alpha^{2}$ with yield stress $\sigma_{y}$, hardening variable $\alpha$ and hardening modulus $h>0$. The idea in this new degradation function is that $c$ depends on $p$ so that the fracture process can be seen as the accumulation of ductile damage. $\Psi_{p}$ will take the dominating role over $\Psi_{e}^{+}$ and thus, a plasticity-driven fracture initiation is achieved. However, here a more abstract derivation of the governing equations will be presented which is based on the work of \citet{03_PF_ductile}.
 
-\hl{TODO}
+In \secref{sec:formul_Griffith} small deformations and deformation gradients have been assumed. Since this does not hold true for ductile fracture, another approach for the derivation of the strong form is chosen. As \citet{03_PF_ductile} have outlined, previous approaches on ductile fracture suffer in the fact that yield surface and hardening modulus are not effected by the phase-field's evolution. Thus, at some point plastic strains saturate and deformation is again dominated by revoverable elastic strains. The notation mentioned at the beginning of this section stays the same. The deformation gradient, which cannot be considered small anymore, now reads
+\begin{equation} \label{eq:deform_grad}
+	\mathbf{F}=\dfrac{\partial\varphi\left(\mathbf{X},t\right)}{\partial\mathbf{X}}
+\end{equation}
+with deformation map $\varphi:\left(\Omega_{0}\times\mathrm{R}\right)\rightarrow\mathrm{R}^{d}$, body $\Omega_{0}$ in the reference configuration  and $\mathbf{x}=\varphi\left(\mathbf{X},t\right)$. \eqref{eq:deform_grad} is now decomposed into elastic and plastic deformations gradiend
+\begin{equation} \label{eq:deform_grad_decomp}
+	\mathbf{F}=\mathbf{F}^{e}\mathbf{F}^{p}
+\end{equation}
+Compared to \eqref{eq:Helmholtz}, the new stored energy functional proposed by \citet{03_PF_ductile} reads
+\begin{equation} \label{eq:fctal_ductile}
+	\tilde{\Psi}\left(\mathbf{F},c,c_{,\mathbf{X}},\mathbf{F}^{p},\alpha\right) = \int\limits_{\Omega_{0}}\left[g\left(c\right)\Psi^{+}\left(\mathbf{F},\mathbf{F}^{p}\right)+\Psi^{-}\left(\mathbf{F},\mathbf{F}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\alpha\right)+\Gamma_{c,n}\right]\mathrm{d}\Omega_{0}
+\end{equation}
+with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $\mathbf{X}$. As in the work by \citet{06_PF_ductile}, an effective plastic work contributation $\Psi_{p}$ depending on the internal hardening variable $\alpha$ has been added. The plastic degradation function $g_{p}\left(c\right)$ provides, analogously to $g\left(c\right)$ a mechanism invoving crack growth driven by development of plastic strains. For example, $g\left(c\right)$ leads to the neglection of plastic softening. In \citep{03_PF_ductile} it has been examined that $g\left(c\right)=c^{2}$ is not leading to a linear stress-strain-curve up to the point of critical stress. To overcome this problem, \citet{03_PF_ductile} propose following parameterized cubic degradation function:
+\begin{equation} \label{eq:cubic_degr_fct}
+	g\left(c\right)=m\left(c^{3}-c^{2}\right)+3c^{2}-2c^{3}
+\end{equation}
+with $m>0$ determining the slope of $g$ at $c=1$. It can be shown that for strains smaller the critical strain for the quadratic degradation function the cubic degradation function leads to $\sigma=E\varepsilon$ as $m\rightarrow0$. Thus, $m=10{-4}$ has been chosen in their numerical examples. The two major accomplishments using the cubic degradation function are at first, there is a nearly linear stress-strain behaviour up to the point of critical stress. Thus, linear elasticity is modelled more accurately. Secondly, it shows up that the critical stress is higher than for the quadratic degradation function (for $l_{0}$ fixed). Thus, a larger length scale parameter can be used so as to achieve the critical stress since $\sigma_{crit}^{cubic}~l_{0}^{-\frac{1}{2}}$. Thus, coarser meshes can be used in order to reduce computational effort.

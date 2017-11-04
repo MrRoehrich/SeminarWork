@@ -56,7 +56,12 @@ $\Gamma$-convergence has already been shown for the second-order phase-field the
 \hl{weak and semidiscrete Galerkin form for ductile fracture}
 
 \subsection{Spatial discretization} \label{sec:space_discr}
-
+Regarding the function spaces defined in \eqref{eq:fct_spaces}, especially the ones for the phase-field and the corresponding variations $\tilde{\mathcal{S}}_{n}$ and $\tilde{\mathcal{V}}_{n}$ (or the corresponding subspaces $\tilde{\mathcal{S}}_{n}^{h}$ and $\tilde{\mathcal{V}}_{n}^{h}$, respecitvely), there is a difficulty occuring within the Finite Element context. The definition of a Sobolev-Space reads
+\begin{equation} \label{eq:Hilbertspace}
+	H^{m}\left(\Omega\right) = \{u\in L^{2}\left(\Omega\right)|D^{\alpha}u\in L^{2}\left(\Omega\right),|\alpha|\leq m\}
+\end{equation}
+with $m\geq0$. In general, the solutions and its derivatives of Finite Element Analysis are continuous within an element. Unfortunately, they are generally not continous between elements and thus, global continuity is lost. But for the fourth-order phase-field theory with $n=4$, a higher regularity is required. As a consequence, the traditional $C^{0}$ Finite Elements cannot be used. Using Isogeometric Finite Elements can circumvent this problem. Isogeometric Analysis (IGA) allows for an exact representation of geometries, even spherical or cylindrical shapes can be representated exactly which is not possible using standard Finite Elements. The isogeometric basis is genereally smooth which overcomes the problem of the necessity of a higher regularity and which leads to a more accurate stress representation \cite{01_PF_dyn_brittle}.
+\hl{necessity for IGA?}
 
 \subsection{Time discretization} \label{sec:time_discr}
 Since this work deals with dynamic fracture, there is a need for a time integration scheme. Here, a monolithic gernalized-$\alpha$ method is presented. This has been proposed by \citet{10_PF_genAlpha} in 1993. Advantages of this method are its second order accuracy as well as unconditonal stability provided that the parameters are well chosen. It is an implicit method which is outlined in this section. The notation used here is taken from the work of \citet{01_PF_dyn_brittle}.
@@ -92,19 +97,19 @@ For the fourth-order phase-field theory, these residual vectors based on $\eqref
 
 \hl{check both residual vectors for c! Use Einstein summation convention here?}
 
-Considering time step $n$, time step size $\Delta t = t_{n+1}-t_{n}$, parameters $\alpha_{f},\alpha_{m},\beta,\gamma$ as well as vectors $\mathbf{d}_{n}$ and $\bm{\Phi}_{n}$ for the control variable degrees-of-freedom of the displacements and phase-field, $\textbf{v}_{n}=\dot{\mathbf{d}}_{n}$ and $\mathbf{a}_{n}=\ddot{\mathbf{d}}_{n}$ are defined. The method then reads as follows:
+Considering time step $n$, time step size $\Delta t = t_{n+1}-t_{n}$, parameters $\alpha_{f},\alpha_{m},\beta,\gamma$ as well as vectors $\mathbf{u}_{n}$ and $\mathbf{c}_{n}$ for the control variable degrees-of-freedom of the displacements and phase-field (see \eqref{eq:fct_approx}), $\textbf{v}_{n}=\dot{\mathbf{u}}_{n}$ and $\mathbf{a}_{n}=\ddot{\mathbf{u}}_{n}$ are defined. The method then reads as follows:
 
-Given $\mathbf{d}_{n}$, $\mathbf{v}_{n}$ and $\mathbf{a}_{n}$. Find $\mathbf{d}_{n+1}$, $\mathbf{v}_{n+1}$, $\mathbf{a}_{n+1}$, $\mathbf{d}_{n+\alpha_{f}}$, $\mathbf{v}_{n+\alpha_{f}}$, $\mathbf{a}_{n+\alpha_{m}}$ and $\bm{\Phi}_{n+1}$ so that:
+Given $\mathbf{u}_{n}$, $\mathbf{v}_{n}$ and $\mathbf{a}_{n}$. Find $\mathbf{u}_{n+1}$, $\mathbf{v}_{n+1}$, $\mathbf{a}_{n+1}$, $\mathbf{u}_{n+\alpha_{f}}$, $\mathbf{v}_{n+\alpha_{f}}$, $\mathbf{a}_{n+\alpha_{m}}$ and $\mathbf{c}_{n+1}$ so that:
 \begin{equation} \label{eq:gen_alpha}
 \begin{aligned}
 \begin{alignedat}{1}
-        \mathbf{R}^{u}\left(\mathbf{d}_{n+\alpha_{f}},\mathbf{v}_{n+\alpha_{f}},\mathbf{a}_{n+\alpha_{m}},\mathbf{\Phi}_{n+1}\right) &= 0, \\
-    	\mathbf{R}^{c}\left(\mathbf{d}_{n+\alpha_{f}},\mathbf{\Phi}_{n+1}\right) &= 0, \\
-        \mathbf{d}_{n+\alpha_{f}} &= \mathbf{d}_{n}+\alpha_{f}\left(\mathbf{d}_{n+1}-\mathbf{d}_{n}\right), \\      
+        \mathbf{R}^{u}\left(\mathbf{u}_{n+\alpha_{f}},\mathbf{v}_{n+\alpha_{f}},\mathbf{a}_{n+\alpha_{m}},\mathbf{c}_{n+1}\right) &= 0, \\
+    	\mathbf{R}^{c}\left(\mathbf{u}_{n+\alpha_{f}},\mathbf{c}_{n+1}\right) &= 0, \\
+        \mathbf{u}_{n+\alpha_{f}} &= \mathbf{u}_{n}+\alpha_{f}\left(\mathbf{u}_{n+1}-\mathbf{u}_{n}\right), \\      
         \mathbf{v}_{n+\alpha_{f}} &= \mathbf{v}_{n}+\alpha_{f}\left(\mathbf{v}_{n+1}-\mathbf{v}_{n}\right), \\
         \mathbf{a}_{n+\alpha_{m}} &= \mathbf{a}_{n}+\alpha_{m}\left(\mathbf{a}_{n+1}-\mathbf{a}_{n}\right), \\
         \mathbf{v}_{n+1} &= \mathbf{v}_{n}+\Delta t\left(\left(1-\gamma\right)\mathbf{a}_{n}+\gamma\mathbf{a}_{n+1}\right), \\  
-        \mathbf{d}_{n+\alpha f} &= \mathbf{d}_{n}+\alpha_{f}\left(\mathbf{d}_{n+1}-\mathbf{d}_{n}\right).
+        \mathbf{u}_{n+\alpha f} &= \mathbf{u}_{n}+\alpha_{f}\left(\mathbf{u}_{n+1}-\mathbf{u}_{n}\right).
 \end{alignedat}
 \end{aligned}
 \end{equation}
@@ -114,8 +119,8 @@ Until convergence is reached, solve the linearized system:
 \begin{equation} \label{eq:NewtonRaphson}
 	\begin{aligned}
 	\begin{alignedat}{2}
-		\dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\Phi_{n+1}}\Delta\bm{\Phi} &&= -\mathbf{R}_{i}^{u}, \\
-		\dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\Phi_{n+1}}\Delta\bm{\Phi} &&= -\mathbf{R}_{i}^{c},
+		\dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{u}}{\partial\mathbf{c}_{n+1}}\Delta\mathbf{c} &&= -\mathbf{R}_{i}^{u}, \\
+		\dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\mathbf{a}_{n+1}}\Delta \mathbf{a} &+ \dfrac{\partial\mathbf{R}_{i}^{c}}{\partial\mathbf{c}_{n+1}}\Delta\mathbf{c} &&= -\mathbf{R}_{i}^{c},
 	\end{alignedat}
 	\end{aligned}
 \end{equation}
