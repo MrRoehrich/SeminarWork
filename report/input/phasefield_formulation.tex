@@ -80,8 +80,8 @@ with the so called degradation function $g\left(c\right)=c^{2}$. At a later poin
 $\bm{\Lambda}^{-}$ is analogously                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          defined. $\lambda_{i}\in\sigma\left(\bm{\varepsilon}\right),i\in\{1,2,3\}$ denote the eigenvalues of the strain tensor. Plugging \eqref{eq:spectr_decomp} into \eqref{eq:psi_e} leads to the energy contributions from tensile and compressive deformations:
 \begin{align} \label{eq:psi_e+-}
 	\begin{aligned}
-		\Psi_{e}^{+}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left<tr\left(\bm{\varepsilon}\right)\right>^{2}+\mu tr\left[\left(\bm{\varepsilon}^{+}\right)\right], \\
-		\Psi_{e}^{-}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left(tr\left(\bm{\varepsilon}\right)-\left<tr\left(\bm{\varepsilon}\right)\right>\right)^{2}+\mu tr\left[\left(\bm{\varepsilon}-\bm{\varepsilon}^{+}\right)\right].
+		\Psi_{e}^{+}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left<tr\left(\bm{\varepsilon}\right)\right>^{2}+\mu tr\left[\left(\bm{\varepsilon}^{+}\right)^{2}\right], \\
+		\Psi_{e}^{-}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left(tr\left(\bm{\varepsilon}\right)-\left<tr\left(\bm{\varepsilon}\right)\right>\right)^{2}+\mu tr\left[\left(\bm{\varepsilon}-\bm{\varepsilon}^{+}\right)^{2}\right].
 	\end{aligned}
 \end{align}
 The assumption here is that the sign of the principal straings determine tensile and compressive contributions. Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy given by
@@ -171,7 +171,7 @@ In \secref{sec:formul_Griffith} small deformations and deformation gradients hav
 \begin{equation} \label{eq:deform_grad}
 	\mathbf{F}=\dfrac{\partial\varphi\left(\mathbf{X},t\right)}{\partial\mathbf{X}}
 \end{equation}
-with deformation map $\varphi:\left(\Omega_{0}\times\mathrm{R}\right)\rightarrow\mathrm{R}^{d}$, body $\Omega_{0}$ in the reference configuration  and $\mathbf{x}=\varphi\left(\mathbf{X},t\right)$. \eqref{eq:deform_grad} is now decomposed into elastic and plastic deformations gradiend
+with deformation map $\varphi:\left(\Omega_{0}\times\mathbb{R}\right)\rightarrow\mathbb{R}^{d}$, body $\Omega_{0}$ in the reference configuration  and $\mathbf{x}=\varphi\left(\mathbf{X},t\right)$. \eqref{eq:deform_grad} is now decomposed into elastic and plastic deformations gradiend
 \begin{equation} \label{eq:deform_grad_decomp}
 	\mathbf{F}=\mathbf{F}^{e}\mathbf{F}^{p}
 \end{equation}
@@ -183,4 +183,99 @@ with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $
 \begin{equation} \label{eq:cubic_degr_fct}
 	g\left(c\right)=m\left(c^{3}-c^{2}\right)+3c^{2}-2c^{3}
 \end{equation}
-with $m>0$ determining the slope of $g$ at $c=1$. It can be shown that for strains smaller the critical strain for the quadratic degradation function the cubic degradation function leads to $\sigma=E\varepsilon$ as $m\rightarrow0$. Thus, $m=10{-4}$ has been chosen in their numerical examples. The two major accomplishments using the cubic degradation function are at first, there is a nearly linear stress-strain behaviour up to the point of critical stress. Thus, linear elasticity is modelled more accurately. Secondly, it shows up that the critical stress is higher than for the quadratic degradation function (for $l_{0}$ fixed). Thus, a larger length scale parameter can be used so as to achieve the critical stress since $\sigma_{crit}^{cubic}~l_{0}^{-\frac{1}{2}}$. Thus, coarser meshes can be used in order to reduce computational effort.
+with $m>0$ determining the slope of $g$ at $c=1$. It can be shown that for strains smaller the critical strain for the quadratic degradation function the cubic degradation function leads to $\sigma=E\varepsilon$ as $m\rightarrow0$. Thus, $m=10{-4}$ has been chosen in their numerical examples. The two major accomplishments using the cubic degradation function are at first, there is a nearly linear stress-strain behaviour up to the point of critical stress. Thus, linear elasticity is modelled more accurately. Secondly, it shows up that the critical stress is higher than for the quadratic degradation function (for $l_{0}$ fixed). Thus, a larger length scale parameter can be used so as to achieve the critical stress since $\sigma_{crit}^{cubic}\sim l_{0}^{-\frac{1}{2}}$. Thus, coarser meshes can be used in order to reduce computational effort.
+
+The approach for the derivation of the governing equations is based on balance laws. To keep things short, not every single step of their derivation but more likely their results are presented here. Microfoce balance laws are assumed to model the phase-field's evolution within a large deformation setting. The balance of linear momentum and angular momentum in the reference configuration lead to (also see \eqref{eq:stress_equil})
+\begin{equation} \label{eq:lin_mom_ang_mom}
+	\begin{aligned}
+		Div\left(\mathbf{P}\right)+\mathbf{B}&=\rho_{0}\ddot{\mathbf{U}}, \\
+		\bm{\sigma} &= \bm{\sigma}^{T}
+	\end{aligned}
+\end{equation}
+with $1^{st}$ Piola-Kirchhoff stress tensor $\mathbf{P}$, density $\rho_{0}$ in the reference configuration and $Div\left(\cdot\right)$ denoting the divergence in the reference configuration. Analogously, assuming an internal microforce $\pi\left(\mathbf{x},t\right)\in\mathbb{R}$, an external microforce $l\left(\mathbf{x}.t\right)\in\mathbb{R}$ acting on the body and an external microforce $\lambda\left(\mathbf{x},t\right)=\bm{\xi}\cdot\mathbf{N}$ acting on the surface (with microforce traction vector $\bm{\xi}\left(\mathbf{x},t\right)\in\mathbb{R}^{d}$), the microfoce balance leads to
+\begin{equation} \label{eq:microforce_balance}
+	Div\left(\bm{\xi}\right)+\pi+l=0.
+\end{equation}
+The energy balance with $e$ describing the internal energy per unit mass density reads
+\begin{equation} \label{eq:energy_balance}
+	\rho_{0}\dot{e}=\mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}.
+\end{equation}
+The second law of thermodynamics leads to
+\begin{equation}
+	\Theta\rho_{0}\dot{s}\geq0
+\end{equation}
+with entropy per unit mass density $s$ and absolute temperature $\Theta$. Note that heat fluxes and heat sources are not considered here. Using $\rho_{0}e=\rho_{0}\Psi+\Theta\rho_{0}s$ this can be rewritten as
+\begin{equation} \label{eq:entropy_balance}
+	\rho_{0}\dot{\Psi}\leq\rho_{0}\dot{e}
+\end{equation}
+with Helmholtz free energy $\Psi$. Using \eqref{eq:energy_balance} and \eqref{eq:entropy_balance}, a thermodynamically consistent model is achieved as long as $\Psi$ fulfills
+\begin{equation} \label{eq:thermodyn_cons}
+	\begin{aligned}
+		\rho_{0}\dot{\Psi} &\leq \mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c} \qquad \text{or} \\
+		\rho_{0}\dot{\Psi} &\leq \dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}\pi\dot{c},
+	\end{aligned}
+\end{equation}
+respectively. $\mathbf{S}$ denotes the $2^{nd}$ Piola-Kirchhoff stress tensor and $\mathbf{C}=\mathbf{F}^{T}\mathbf{F}$ the right Cauchy-Green tensor.
+
+Assuming that $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{C}},\dot{c}\right)$ with plastic right Cauchy-Green tensor $\mathbf{C}^{p}={\mathbf{F}^{p}}^{T}\mathbf{F}^{p}$ and set of internal plastic variables $\mathbf{Q}$, \eqref{eq:thermodyn_cons} can be written as
+\begin{equation} \label{eq:thermodyn_cons2}
+	\begin{aligned}
+	\int\limits_{\Omega_{0}}&\left(\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}}:\dot{\mathbf{C}}+\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}+\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}+\rho_{0}\dfrac{\partial\Psi}{\partial c}\dot{c}+\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\cdot\dot{c}_{,\mathbf{X}}+\rho_{0}\dfrac{\partial\Psi}{\partial\dot{c}}\ddot{c}\right)\mathrm{d}\Omega_{0} \\
+	&\leq \int\limits_{\Omega_{0}}\left(\dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}\right)\mathrm{d}\Omega_{0}.
+	\end{aligned}
+\end{equation}
+by applying the chain rule and integrating over the reference domain $\Omega_{0}$.
+
+The plastic dissipation $\mathbb{D}^{p}=-\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}-\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}$ can be set to zero for purely elastic deformations. Comparing the terms on the left hand and right hand side of \eqref{eq:thermodyn_cons2}, the following relations can be derived:
+\begin{equation} \label{eq:relations_cons}
+	\begin{aligned}
+		\rho_{0}\dfrac{\partial\Psi}{\partial\dot{c}} &= 0, \\
+		\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}} &= \bm{\xi}, \\
+		2\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}} &= \mathbf{S}, \\
+		\left(\pi+\rho_{0}\dfrac{\partial\Psi}{\partial c}\right)\dot{c} &\leq 0, \\
+		\mathbb{D}^{p} &\geq 0.
+	\end{aligned}
+\end{equation}
+$\eqref{eq:relations_cons}_{4}$ can be rewritten as
+\begin{equation} \label{eq:relation_cons_beta}
+	\pi = -\rho_{0}\dfrac{\partial\Psi}{\partial c}-\beta\dot{c}
+\end{equation}
+with function $\beta\geq0$. Inserting \eqref{eq:relations_cons} and \eqref{eq:relation_cons_beta} into the balance laws $\eqref{eq:lin_mom_ang_mom}_{1}$ and \eqref{eq:microforce_balance}, leads to following equations (using $\mathbf{P}=\mathbf{F}\mathbf{S}$):
+\begin{equation} \label{eq:balance_laws}
+	\begin{aligned}
+		Div\left(2\mathbf{F}\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}}\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}}, \\
+		Div\left(\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\right)+l-\rho_{0}\dfrac{\partial\Psi}{\partial c} &= \beta\dot{c}.
+	\end{aligned}
+\end{equation}
+Considering \eqref{eq:fctal_ductile}, the Helmholtz free energy for ductile fracture reads
+\begin{equation} \label{eq:Helmholtz_ductile2}
+	\Psi_{n}\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}}\right) = g\left(c\right)\Psi^{+}\left(\mathbf{C},\mathbf{C}^{p}\right)+\Psi^{-}\left(\mathbf{C},\mathbf{C}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\mathbf{Q}\right)+\Gamma_{c,n}.
+\end{equation}
+Using this, the partial derivatives required in \eqref{eq:balance_laws} can be computed. Furthermore, setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilibrium is given by
+\begin{equation} \label{eq:stress_equil_ductile}
+	 \left\{\begin{alignedat}{2}
+		Div\left(2\mathbf{F}\left(g\left(c\right)\dfrac{\partial\Psi^{+}}{\partial\mathbf{C}}+\dfrac{\partial\Psi^{-}}{\partial\mathbf{C}}\right)\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}} && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
+		\mathbf{U} &= \mathbf{G} && \quad\text{on } \partial\Omega_{0,\mathbf{G}}\times\left(0,T\right) \\
+		\mathbf{T} &= \mathbf{H} && \quad\text{on } \partial\Omega_{0,\mathbf{H}}\times\left(0,T\right) \\
+		\mathbf{U} &= \mathbf{U}_{0} && \quad\text{on } \Omega_{0}\times0 \\
+		\dot{\mathbf{U}} &= \mathbf{V}_{0} && \quad\text{on } \Omega_{0}\times0.
+  \end{alignedat}\right
+\end{equation}
+with Piola-Kirchhoff traction vector $\mathbf{T}=\mathbf{P}\cdot\mathbf{N}$. The governing equations for the evolution of the phase-field read for $n=2$
+\begin{equation} \label{eq:c2_equil_ducilte}
+		 \left\{\begin{alignedat}{2}
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\hl{\nabla c\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
+\end{alignedat}\right.
+\end{equation}
+and for the fourth-order phase-field theory
+\begin{equation} \label{eq:c4_equil_ductile}
+		 \left\{\begin{alignedat}{2}
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right)=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0,
+\end{alignedat}\right.
+\end{equation}
+respectively.
