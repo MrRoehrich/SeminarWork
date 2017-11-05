@@ -110,23 +110,26 @@ As described in \secref{sec:formul_Griffith}, the Euler-Lagrange Equation can be
 \end{equation}
 It can also be used to model pre-existing cracks or geometrical features \cite{01_PF_dyn_brittle}.
 
- \hl{\text{Boundary-Conditions!}}
 \begin{equation} \label{eq:c2_equil}
 		 \left\{\begin{alignedat}{2}
 \left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
-\hl{\nabla c\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\nabla c\cdot\mathbf{n} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
 \end{alignedat}\right.
 \end{equation}
 \begin{equation} \label{eq:c4_equil}
 		 \left\{\begin{alignedat}{2}
 \left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right) &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
-\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
-\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\Delta c &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
+\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
 \end{alignedat}\right.
 \end{equation}
-The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the this section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
+\hl{\text{In \citep{11_PF_DissBorden}: Displacements and phase-field supplemented with initial conditions } u_{0} \text{ } v_{0} \text{.}}
+
+\hl{\text{Why not } c_{0} \text{ or } \mathcal{H}_{0} \text{, respectively. (3.57) \& (3.100)}}
+
+The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}.\hl{\text{Where does this come from?}} The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the this section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
 
 \subsection{Ductile fracture} \label{sec:ductile_frac}
 So as to motivate this section, at first the differences between models of brittle and ductile fracture are examined. Up to this point of this paper, linear elasticity has been assumed. In this context, brittle fracture has been formulated in a variational way. By introducing the phase-field approximation, a regularized formulation of the variational one has been established. The corresponding stress-strain-curves and the procedure are illustrated in \figref{fig:elastic}.
@@ -208,7 +211,7 @@ with entropy per unit volume $s$ and absolute temperature $\Theta$. Note that he
 \begin{equation} \label{eq:entropy_balance}
 	\dot{\Psi}\leq\dot{e}_{0}
 \end{equation}
-with Helmholtz free energy $\Psi$. Using \eqref{eq:energy_balance} and \eqref{eq:entropy_balance}, applying the divergence theorem, integrating by parts and using \eqref{eq:microforce_balance}, a thermodynamically consistent model is achieved as long as $\Psi$ fulfills \hl{wieso U. -> F.}
+with Helmholtz free energy $\Psi$. Using \eqref{eq:energy_balance} and \eqref{eq:entropy_balance}, applying the divergence theorem, integrating by parts and using \eqref{eq:microforce_balance}, a thermodynamically consistent model is achieved as long as $\Psi$ fulfills \hl{\text{Why does }\mathbf{P}:\dot{\mathbf{U}} \text{ transform to } \mathbf{P}:\dot{\mathbf{F}}\text{?}}
 \begin{equation} \label{eq:thermodyn_cons}
 		\int\limits_{\Omega_{0}}\dot{\Psi}\mathrm{d}\Omega_{0} \leq \int\limits_{\Omega_{0}}\left(\mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}\right)\mathrm{d}\Omega_{0} = \int\limits_{\Omega_{0}}\left(\dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}\pi\dot{c}\right)\mathrm{d}\Omega_{0}.
 \end{equation}
@@ -268,13 +271,18 @@ Having $\left<\cdot\right>$ defined as in \eqref{eq:spectr_decomp}, the term $\P
 \begin{equation} \label{eq:c2_equil_ductile}
 	\left\{\begin{alignedat}{2}
 		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(\beta_{e}g'\left(c\right)+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right) + c - 4l_{0}^{2}\Delta c\ &= 1 && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
-		\hl{c_{,\mathbf{X}}\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		c_{,\mathbf{X}}\cdot\mathbf{N} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
 		\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega_{0}\times0.
 	\end{alignedat}\right.
 \end{equation}
-There are several constitutive models so as to determine the energy density functions $\Psi^{+}$, $\Psi^{-}$ and $\Psi_{p}$. These have been well outlined by \citet{03_PF_ductile} and within this work, it is only referred to this work. \hl{initial condition right?! or u0 v0 sufficient? -> dissertation Borden}
+The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}. \hl{\text{Where does this come from?}} There are several constitutive models so as to determine the energy density functions $\Psi^{+}$, $\Psi^{-}$ and $\Psi_{p}$. These have been well outlined by \citet{03_PF_ductile} and within this work, it is only referred to this work. 
 
-Since $\eqref{eq:crack_dens_fctals}_{2}$ includes second order spatial derivatives of $c$ for the fourth-order phase-field theory, the relations \eqref{eq:relations_cons2} have to be adapted. For that, the Helmholtz free energy is assumed to take the form $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}},c_{,ii},\dot{c}\right)$ so that \eqref{eq:thermodyn_cons2} changes to:
+\hl{\text{In \citep{11_PF_DissBorden}: Displacements and phase-field supplemented with initial conditions } u_{0} \text{ } v_{0} \text{.}}
+
+\hl{\text{Why not } c_{0} \text{ or } \mathcal{H}_{0} \text{, respectively. (3.57) \& (3.100)}}
+
+
+Since $\eqref{eq:crack_dens_fctals}_{2}$ includes second order spatial derivatives of $c$ for the fourth-order phase-field theory, the relations \eqref{eq:relations_cons2} have to be adapted. For that, the Helmholtz free energy is assumed to take the form $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}},c_{,ii},\dot{c}\right)$ so that \eqref{eq:thermodyn_cons2} changes to\footnote{Note that Einstein's summation convention on repeated indices is used here.}:
 \begin{equation} \label{eq:thermodyn_cons4}
 	\begin{aligned}
 	\int\limits_{\Omega_{0}}&\left(\dfrac{\partial\Psi}{\partial\mathbf{C}}:\dot{\mathbf{C}}+\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}+\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}+\dfrac{\partial\Psi}{\partial c}\dot{c}+\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\cdot\dot{c}_{,\mathbf{X}}+\dfrac{\partial\Psi}{\partial c_{,jj}}\dot{c}_{,ii}+\dfrac{\partial\Psi}{\partial\dot{c}}\ddot{c}\right)\mathrm{d}\Omega_{0} \\
@@ -307,9 +315,14 @@ Inserting the Helmholtz free energy from \eqref{eq:Helmholtz_ductile2} for $n=4$
 \begin{equation} \label{eq:c4_equil_ductile}
 	\left\{\begin{alignedat}{2}
 		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(g'\left(c\right)\Psi^{+}+g_{p}'\left(c\right)\Psi_{p}\right) + c - 2l_{0}^{2}\Delta c +l_{0}^{4}\Delta\left(\Delta c\right) &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
-		\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
-		\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		\Delta c &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{N} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega_{0}\times0  
 	\end{alignedat}\right.
 \end{equation}
-Note that the governing equations for brittle fracture could also have been derived using the approach based on the balance laws, especially the microforce balance. For a more detailed derivation, it is referred to \citep{11_PF_DissBorden}. \hl{initial condition right?! or u0 v0 sufficient? -> dissertation Borden}
+The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}. \hl{\text{Where does this come from?}} Note that the governing equations for brittle fracture could also have been derived using the approach based on the balance laws, especially the microforce balance. For a more detailed derivation, it is referred to \citep{11_PF_DissBorden}. 
+
+
+\hl{\text{In \citep{11_PF_DissBorden}: Displacements and phase-field supplemented with initial conditions } u_{0} \text{ } v_{0} \text{.}}
+
+\hl{\text{Why not } c_{0} \text{ or } \mathcal{H}_{0} \text{, respectively. (3.57) \& (3.100)}}
