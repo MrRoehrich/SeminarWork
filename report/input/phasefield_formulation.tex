@@ -249,9 +249,9 @@ with function $\beta\geq0$. Inserting \eqref{eq:relations_cons} and \eqref{eq:re
 \end{equation}
 Considering \eqref{eq:fctal_ductile}, the Helmholtz free energy for ductile fracture reads
 \begin{equation} \label{eq:Helmholtz_ductile2}
-	\Psi_{n}\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}}\right) = g\left(c\right)\Psi^{+}\left(\mathbf{C},\mathbf{C}^{p}\right)+\Psi^{-}\left(\mathbf{C},\mathbf{C}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\mathbf{Q}\right)+\Gamma_{c,n}.
+	\rho_{0}\Psi_{n}\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}}\right) = g\left(c\right)\Psi^{+}\left(\mathbf{C},\mathbf{C}^{p}\right)+\Psi^{-}\left(\mathbf{C},\mathbf{C}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\mathbf{Q}\right)+\Gamma_{c,n}.
 \end{equation}
-Using this, the partial derivatives required in \eqref{eq:balance_laws} can be computed. Furthermore, setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilibrium is given by
+\hl{plrRho0dabei} Using this, the partial derivatives required in \eqref{eq:balance_laws} can be computed. Furthermore, setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilibrium is given by
 \begin{equation} \label{eq:stress_equil_ductile}
 	 \left\{\begin{alignedat}{2}
 		Div\left(2\mathbf{F}\left(g\left(c\right)\dfrac{\partial\Psi^{+}}{\partial\mathbf{C}}+\dfrac{\partial\Psi^{-}}{\partial\mathbf{C}}\right)\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}} && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
@@ -259,16 +259,26 @@ Using this, the partial derivatives required in \eqref{eq:balance_laws} can be c
 		\mathbf{T} &= \mathbf{H} && \quad\text{on } \partial\Omega_{0,\mathbf{H}}\times\left(0,T\right) \\
 		\mathbf{U} &= \mathbf{U}_{0} && \quad\text{on } \Omega_{0}\times0 \\
 		\dot{\mathbf{U}} &= \mathbf{V}_{0} && \quad\text{on } \Omega_{0}\times0.
-  \end{alignedat}\right
+  \end{alignedat}\right.
 \end{equation}
-with Piola-Kirchhoff traction vector $\mathbf{T}=\mathbf{P}\cdot\mathbf{N}$. The governing equations for the evolution of the phase-field read for $n=2$
-\begin{equation} \label{eq:c2_equil_ducilte}
-		 \left\{\begin{alignedat}{2}
-\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
-\hl{\nabla c\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
-\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
-\end{alignedat}\right.
+with Piola-Kirchhoff traction vector $\mathbf{T}=\mathbf{P}\cdot\mathbf{N}$. Considering the second-order phase-field theory and inserting the two partial derivatives $\frac{\partial\Psi}{\partial c_{,\mathbf{X}}}$ and $\frac{\partial\Psi}{\partial c}$ required in \eqref{eq:balance_laws} with the help of \eqref{eq:Helmholtz_ductile2} leads to following equation:
+\begin{equation} \label{eq:c2_ph_evolution_tmp}
+\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(g'\left(c\right)\Psi^{+}+g_{p}'\left(c\right)\Psi_{p}\right) + c - 4l_{0}^{2}\Delta c = 1 \quad\text{on } \Omega\times\left(0,T\right).
 \end{equation}
+However, the irreversibility conditions outlined in \eqref{eq:KuhnTucker} have not been considered yet. Now, the history field is given by
+\begin{equation} \label{eq:history_field_ductile}
+	\mathcal{H}\left(\mathbf{C},\mathbf{C}^{p}\right) = \max\limits_{\bar{t}\leq t} \Psi^{+}\left(\mathbf{C}\left(\bar{t}\right),\mathbf{C}^{p}\left(\bar{t}\right)\right).
+\end{equation}
+Having $\left<\cdot\right>$ defined as in \eqref{eq:spectr_decomp}, the term $\Psi_{p}$ in \eqref{eq:c2_ph_evolution_tmp} is replaced by $\left<\Psi_{p}-\Psi_{0}\right>$. Actually, $\Psi_{p}$ is already assumed to be monotonically increasing so that no additional constraints are necessary in order to enforce irreversibility crack growth caused by plastic deformation. However, \citet{03_PF_ductile} introduce the plastic work threshold $\Psi_{0}$ so as to have more control over the contribution of plastic deformation to crack growth. Thus, if $\Psi_{p}<\Psi_{0}$, there will be no contribution of plastic deformation to crack growth. This point can now be controlled easily. Furthermore, \citet{03_PF_ductile} introduce parameters $\beta_{e}\in\left[0,1\right]$ and $\beta_{p}\left[0,1\right]$ which can be used in order to weight the contributions from elastic strain energy and plastic work to crack growth. These modifications, \eqref{eq:c2_ph_evolution_tmp} and \eqref{eq:history_field_ductile} lead to the governing equations for the evolution of the phase-field considering ductile fracture and the second-order phase-field theory:
+\begin{equation} \label{eq:c2_equil_ductile}
+	\left\{\begin{alignedat}{2}
+		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(\beta_{e}g'\left(c\right)+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right) + c - 4l_{0}^{2}\Delta c\ &= 1 && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
+		\hl{\nabla c\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega_{0}\times0,
+	\end{alignedat}\right.
+\end{equation}
+\hl{initial condition right?!}
+
 and for the fourth-order phase-field theory
 \begin{equation} \label{eq:c4_equil_ductile}
 		 \left\{\begin{alignedat}{2}

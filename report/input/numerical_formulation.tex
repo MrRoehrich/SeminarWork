@@ -20,7 +20,8 @@ So as to get to the weak form, the governing equations have to be multiplied wit
 	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
 	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(4l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} &= \left(1,q\right)_{\Omega} \\
 	\left(\rho\mathbf{u}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\mathbf{u}_{0},\mathbf{w}\right)_{\Omega} \\
-	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega}
+	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(c\left(0\right),q\right)_{\Omega} &= \left(c_{0},q\right)_{\Omega}
 \end{alignedat}\right.
 \end{aligned}
 \end{equation}
@@ -32,7 +33,8 @@ So as to get to the weak form, the governing equations have to be multiplied wit
 	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
 	\left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c,q\right)_{\Omega} + \left(2l_{0}^{2}\nabla c,\nabla q\right)_{\Omega} + \left(l_{0}^{4}\Delta c,\Delta q\right)_{\Omega}&= \left(1,q\right)_{\Omega} \\
 	\left(\rho\mathbf{u}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\mathbf{u}_{0},\mathbf{w}\right)_{\Omega} \\
-	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega}
+	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(c\left(0\right),q\right)_{\Omega} &= \left(c_{0},q\right)_{\Omega}
 \end{alignedat}\right.
 \end{aligned}
 \end{equation}
@@ -53,7 +55,22 @@ In order to obtain the semidiscrete Galerkin form of the problem, these approxim
 
 $\Gamma$-convergence has already been shown for the second-order phase-field theory but it has not been proved for the fourth-order theory yet. However, \citet{02_PF_HO_brittle} showed that the latter is well behaved in numerical examples. Comments on existing results for the higher-order model will shortly be outlined in \secref{sec:concl}.
 
-\hl{weak and semidiscrete Galerkin form for ductile fracture}
+Analogously, the weak form for the second-order phase-field theory and ductile fracture can be derived. Considering critical energy density $\mathcal{G}_{c}=\frac{\mathcal{G}_{c}^{0}}{J}$ in the current configuration with Jacobian $J$, the system reads
+
+\textbf{n=2:}$\quad$ Find $\mathbf{u}\left(t\right)\in\bm{\mathcal{S}}$ and $c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right]$ so that $\forall \mathbf{w}\in\bm{\mathcal{V}}$ and $\forall q\in\tilde{\mathcal{V}}_{2}$:
+\begin{equation} \label{eq:weak_2_ductile}
+\begin{aligned}
+\left\{\begin{alignedat}{1}
+	\left(\rho \ddot{\mathbf{u}},\mathbf{w}\right)_{\Omega} + \left(\bm{\sigma},\nabla\mathbf{w}\right)_{\Omega} &= \left(\mathbf{h},\mathbf{w}\right)_{\partial\Omega_{\mathbf{h}}} + \left(\mathbf{b},\mathbf{w}\right)_{\partial\Omega_{\mathbf{g}}} \\
+	\left(\dfrac{2l_{0}}{J\mathcal{G}_{c}}\left(\beta_{e}g'\left(c\right)+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right)+c,q\right)_{\Omega} & \\
+	+\left(4l_{0}^{2} c_{,\mathbf{X}}, q_{,\mathbf{X}}\right)_{\Omega} &= \left(1,q\right)_{\Omega} \\
+	\left(\rho\mathbf{u}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\mathbf{u}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(\rho\dot{\mathbf{u}}\left(0\right),\mathbf{w}\right)_{\Omega} &= \left(\rho\dot{\mathbf{u}}_{0},\mathbf{w}\right)_{\Omega} \\
+	\left(c\left(0\right),q\right)_{\Omega_{0}} &= \left(c_{0},q\right)_{\Omega_{0}}.
+\end{alignedat}\right.
+\end{aligned}
+\end{equation}
+The semidiskrete Galerkin form follows as already mentioned for the weak form considering brittle fracture. Note that derivatives with respect to the reference configuration can be mapped to derivatives within the current configuration by appyling the chain rule $\left(\cdot\right)_{,\mathbf{X}}=\left(\cdot\right)_{,\mathbf{x}}\mathbf{F}$. Thus, in the weak form the term $\left(4l_{0}^{2} c_{,\mathbf{X}}, q_{,\mathbf{X}}\right)_{\Omega}$ from \eqref{eq:weak_2_ductile} becomes $\left(4l_{0}^{2} \mathbf{F}^{T}c_{,\mathbf{x}}^{h}, \mathbf{F}^{T}q_{,\mathbf{x}}^{h}\right)_{\Omega}$.
 
 \subsection{Spatial discretization} \label{sec:space_discr}
 Regarding the function spaces defined in \eqref{eq:fct_spaces}, especially the ones for the phase-field and the corresponding variations $\tilde{\mathcal{S}}_{n}$ and $\tilde{\mathcal{V}}_{n}$ (or the corresponding subspaces $\tilde{\mathcal{S}}_{n}^{h}$ and $\tilde{\mathcal{V}}_{n}^{h}$, respecitvely), there is a difficulty occuring within the Finite Element context. The definition of a Sobolev-Space reads
