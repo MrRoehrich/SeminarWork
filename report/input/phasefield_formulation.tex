@@ -113,14 +113,14 @@ It can also be used to model pre-existing cracks or geometrical features \cite{0
  \hl{\text{Boundary-Conditions!}}
 \begin{equation} \label{eq:c2_equil}
 		 \left\{\begin{alignedat}{2}
-\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 4l_{0}^{2}\Delta c &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
 \hl{\nabla c\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
 \end{alignedat}\right.
 \end{equation}
 \begin{equation} \label{eq:c4_equil}
 		 \left\{\begin{alignedat}{2}
-\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right)=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
+\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right) &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
 \hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
 \hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
 \mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0  
@@ -179,7 +179,7 @@ Compared to \eqref{eq:Helmholtz}, the new stored energy functional proposed by \
 \begin{equation} \label{eq:fctal_ductile}
 	\tilde{\Psi}\left(\mathbf{F},c,c_{,\mathbf{X}},\mathbf{F}^{p},\alpha\right) = \int\limits_{\Omega_{0}}\left[g\left(c\right)\Psi^{+}\left(\mathbf{F},\mathbf{F}^{p}\right)+\Psi^{-}\left(\mathbf{F},\mathbf{F}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\alpha\right)+\Gamma_{c,n}\right]\mathrm{d}\Omega_{0}
 \end{equation}
-with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $\mathbf{X}$. As in the work by \citet{06_PF_ductile}, an effective plastic work contributation $\Psi_{p}$ depending on the internal hardening variable $\alpha$ has been added. The plastic degradation function $g_{p}\left(c\right)$ provides, analogously to $g\left(c\right)$ a mechanism invoving crack growth driven by development of plastic strains. For example, $g\left(c\right)$ leads to the neglection of plastic softening. In \citep{03_PF_ductile} it has been examined that $g\left(c\right)=c^{2}$ is not leading to a linear stress-strain-curve up to the point of critical stress. To overcome this problem, \citet{03_PF_ductile} propose following parameterized cubic degradation function:
+with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $\mathbf{X}$\footnote{Note that for ductile fracture in this work, $\nabla\left(\cdot\right)$ is replaced by $\left(\cdot\right)_{,\mathbf{X}}$ or $\left(\cdot\right)_{,\mathbf{x}}$, respectively in order to distinguish between derivatives with respect to the reference or current configuration. For brittle fracture, everything has been derived within the current configuration.}. As in the work by \citet{06_PF_ductile}, an effective plastic work contributation $\Psi_{p}$ depending on the internal hardening variable $\alpha$ has been added. The plastic degradation function $g_{p}\left(c\right)$ provides, analogously to $g\left(c\right)$ a mechanism invoving crack growth driven by development of plastic strains. For example, $g\left(c\right)$ leads to the neglection of plastic softening. In \citep{03_PF_ductile} it has been examined that $g\left(c\right)=c^{2}$ is not leading to a linear stress-strain-curve up to the point of critical stress. To overcome this problem, \citet{03_PF_ductile} propose following parameterized cubic degradation function:
 \begin{equation} \label{eq:cubic_degr_fct}
 	g\left(c\right)=m\left(c^{3}-c^{2}\right)+3c^{2}-2c^{3}
 \end{equation}
@@ -196,62 +196,59 @@ with $1^{st}$ Piola-Kirchhoff stress tensor $\mathbf{P}$, density $\rho_{0}$ in 
 \begin{equation} \label{eq:microforce_balance}
 	Div\left(\bm{\xi}\right)+\pi+l=0.
 \end{equation}
-The energy balance with $e$ describing the internal energy per unit mass density reads
+The energy balance with $e$ describing the internal energy per unit volume reads
 \begin{equation} \label{eq:energy_balance}
-	\rho_{0}\dot{e}=\mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}.
+	\int\limits_{\Omega_{0}}\dot{e}_{0}\mathrm{d}\Omega_{0}=\int\limits_{\Omega_{0}}\mathbf{P}:\dot{\mathbf{U}}\mathrm{d}\Omega_{0}+\int\limits_{\partial\Omega_{0}}\lambda\dot{c}\text{ }\mathrm{d}\partial\Omega_{0}+\int\limits_{\Omega_{0}}l\dot{c}\text{ }\mathrm{d}\Omega_{0},
 \end{equation}
-The second law of thermodynamics leads to
+where $\dot{c}$ is the work conjugate of the microforces. The second law of thermodynamics leads to
 \begin{equation}
-	\Theta\rho_{0}\dot{s}\geq0
+	\Theta\dot{s}\geq0
 \end{equation}
-with entropy per unit mass density $s$ and absolute temperature $\Theta$. Note that heat fluxes and heat sources are not considered here. Using $\rho_{0}e=\rho_{0}\Psi+\Theta\rho_{0}s$ this can be rewritten as
+with entropy per unit volume $s$ and absolute temperature $\Theta$. Note that heat fluxes and heat sources are not considered here (isothermal and adiabatic process). Using the dissipation inequality $e_{0}=\Psi+\Theta  s$ (see Legendre transormation) this can be rewritten as
 \begin{equation} \label{eq:entropy_balance}
-	\rho_{0}\dot{\Psi}\leq\rho_{0}\dot{e}
+	\dot{\Psi}\leq\dot{e}_{0}
 \end{equation}
-with Helmholtz free energy $\Psi$. Using \eqref{eq:energy_balance} and \eqref{eq:entropy_balance}, a thermodynamically consistent model is achieved as long as $\Psi$ fulfills
+with Helmholtz free energy $\Psi$. Using \eqref{eq:energy_balance} and \eqref{eq:entropy_balance}, applying the divergence theorem, integrating by party and using \eqref{eq:microforce_balance}, a thermodynamically consistent model is achieved as long as $\Psi$ fulfills \hl{wieso U. -> F.}
 \begin{equation} \label{eq:thermodyn_cons}
-	\begin{aligned}
-		\rho_{0}\dot{\Psi} &\leq \mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c} \qquad \text{or} \\
-		\rho_{0}\dot{\Psi} &\leq \dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}\pi\dot{c},
-	\end{aligned}
+		\int\limits_{\Omega_{0}}\dot{\Psi}\mathrm{d}\Omega_{0} \leq \int\limits_{\Omega_{0}}\left(\mathbf{P}:\dot{\mathbf{F}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}\right)\mathrm{d}\Omega_{0} = \int\limits_{\Omega_{0}}\left(\dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}\pi\dot{c}\right)\mathrm{d}\Omega_{0}.
 \end{equation}
-respectively. $\mathbf{S}$ denotes the $2^{nd}$ Piola-Kirchhoff stress tensor and $\mathbf{C}=\mathbf{F}^{T}\mathbf{F}$ the right Cauchy-Green tensor.
+$\mathbf{S}$ denotes the $2^{nd}$ Piola-Kirchhoff stress tensor and $\mathbf{C}=\mathbf{F}^{T}\mathbf{F}$ the right Cauchy-Green tensor.
 
-Assuming that $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{C}},\dot{c}\right)$ with plastic right Cauchy-Green tensor $\mathbf{C}^{p}={\mathbf{F}^{p}}^{T}\mathbf{F}^{p}$ and set of internal plastic variables $\mathbf{Q}$, \eqref{eq:thermodyn_cons} can be written as
+Assuming that $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}},\dot{c}\right)$ with plastic right Cauchy-Green tensor $\mathbf{C}^{p}={\mathbf{F}^{p}}^{T}\mathbf{F}^{p}$ and set of internal plastic variables $\mathbf{Q}$, applying the chain rule in \eqref{eq:thermodyn_cons} leads to
 \begin{equation} \label{eq:thermodyn_cons2}
 	\begin{aligned}
-	\int\limits_{\Omega_{0}}&\left(\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}}:\dot{\mathbf{C}}+\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}+\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}+\rho_{0}\dfrac{\partial\Psi}{\partial c}\dot{c}+\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\cdot\dot{c}_{,\mathbf{X}}+\rho_{0}\dfrac{\partial\Psi}{\partial\dot{c}}\ddot{c}\right)\mathrm{d}\Omega_{0} \\
+	\int\limits_{\Omega_{0}}&\left(\dfrac{\partial\Psi}{\partial\mathbf{C}}:\dot{\mathbf{C}}+\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}+\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}+\dfrac{\partial\Psi}{\partial c}\dot{c}+\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\cdot\dot{c}_{,\mathbf{X}}+\dfrac{\partial\Psi}{\partial\dot{c}}\ddot{c}\right)\mathrm{d}\Omega_{0} \\
 	&\leq \int\limits_{\Omega_{0}}\left(\dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}\right)\mathrm{d}\Omega_{0}.
 	\end{aligned}
 \end{equation}
 by applying the chain rule and integrating over the reference domain $\Omega_{0}$.
 
-The plastic dissipation $\mathbb{D}^{p}=-\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}-\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}$ can be set to zero for purely elastic deformations. Comparing the terms on the left hand and right hand side of \eqref{eq:thermodyn_cons2}, the following relations can be derived:
-\begin{equation} \label{eq:relations_cons}
+The plastic dissipation $\mathbb{D}^{p}=-\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}-\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}$ can be set to zero for purely elastic deformations. Comparing the terms on the left hand and right hand side of \eqref{eq:thermodyn_cons2}, the following relations can be derived:
+\begin{equation} \label{eq:relations_cons2}
 	\begin{aligned}
-		\rho_{0}\dfrac{\partial\Psi}{\partial\dot{c}} &= 0, \\
-		\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}} &= \bm{\xi}, \\
-		2\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}} &= \mathbf{S}, \\
-		\left(\pi+\rho_{0}\dfrac{\partial\Psi}{\partial c}\right)\dot{c} &\leq 0, \\
+		\dfrac{\partial\Psi}{\partial\dot{c}} &= 0, \\
+		\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}} &= \bm{\xi}, \\
+		2\dfrac{\partial\Psi}{\partial\mathbf{C}} &= \mathbf{S}, \\
+		\left(\pi+\dfrac{\partial\Psi}{\partial c}\right)\dot{c} &\leq 0, \\
 		\mathbb{D}^{p} &\geq 0.
 	\end{aligned}
 \end{equation}
-$\eqref{eq:relations_cons}_{4}$ can be rewritten as
+$\eqref{eq:relations_cons2}_{4}$ can be rewritten as
 \begin{equation} \label{eq:relation_cons_beta}
-	\pi = -\rho_{0}\dfrac{\partial\Psi}{\partial c}-\beta\dot{c}
+	\pi = -\dfrac{\partial\Psi}{\partial c}-\beta\dot{c}
 \end{equation}
-with function $\beta\geq0$. Inserting \eqref{eq:relations_cons} and \eqref{eq:relation_cons_beta} into the balance laws $\eqref{eq:lin_mom_ang_mom}_{1}$ and \eqref{eq:microforce_balance}, leads to following equations (using $\mathbf{P}=\mathbf{F}\mathbf{S}$):
+with function $\beta=\beta\left(\mathbf{C},\mathbf{C}^{p},c,c_{,\mathbf{X}}\right)\geq0$\footnote{$\beta$ can be seen as a dissipation constant.}. Inserting \eqref{eq:relations_cons2} and \eqref{eq:relation_cons_beta} into the balance laws $\eqref{eq:lin_mom_ang_mom}_{1}$ and \eqref{eq:microforce_balance}, leads to following equations (using $\mathbf{P}=\mathbf{F}\mathbf{S}$):
 \begin{equation} \label{eq:balance_laws}
 	\begin{aligned}
-		Div\left(2\mathbf{F}\rho_{0}\dfrac{\partial\Psi}{\partial\mathbf{C}}\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}}, \\
-		Div\left(\rho_{0}\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\right)+l-\rho_{0}\dfrac{\partial\Psi}{\partial c} &= \beta\dot{c}.
+		Div\left(2\mathbf{F}\dfrac{\partial\Psi}{\partial\mathbf{C}}\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}}, \\
+		Div\left(\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\right)+l-\dfrac{\partial\Psi}{\partial c} &= \beta\dot{c}.
 	\end{aligned}
 \end{equation}
 Considering \eqref{eq:fctal_ductile}, the Helmholtz free energy for ductile fracture reads
 \begin{equation} \label{eq:Helmholtz_ductile2}
-	\rho_{0}\Psi_{n}\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}}\right) = g\left(c\right)\Psi^{+}\left(\mathbf{C},\mathbf{C}^{p}\right)+\Psi^{-}\left(\mathbf{C},\mathbf{C}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\mathbf{Q}\right)+\Gamma_{c,n}.
+	\Psi_{n}\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}}\right) = g\left(c\right)\Psi^{+}\left(\mathbf{C},\mathbf{C}^{p}\right)+\Psi^{-}\left(\mathbf{C},\mathbf{C}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\mathbf{Q}\right)+\Gamma_{c,n}.
 \end{equation}
-\hl{plrRho0dabei} Using this, the partial derivatives required in \eqref{eq:balance_laws} can be computed. Furthermore, setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilibrium is given by
+For the fourth-order phase-field theory $\Psi$ also depends on the second-order spatial derivatives of $c$. Using this, the partial derivatives required in \eqref{eq:balance_laws} can be computed. Furthermore, setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilibrium is given by
 \begin{equation} \label{eq:stress_equil_ductile}
 	 \left\{\begin{alignedat}{2}
 		Div\left(2\mathbf{F}\left(g\left(c\right)\dfrac{\partial\Psi^{+}}{\partial\mathbf{C}}+\dfrac{\partial\Psi^{-}}{\partial\mathbf{C}}\right)\right)+\mathbf{B} &= \rho_{0}\ddot{\mathbf{U}} && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
@@ -273,19 +270,48 @@ Having $\left<\cdot\right>$ defined as in \eqref{eq:spectr_decomp}, the term $\P
 \begin{equation} \label{eq:c2_equil_ductile}
 	\left\{\begin{alignedat}{2}
 		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(\beta_{e}g'\left(c\right)+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right) + c - 4l_{0}^{2}\Delta c\ &= 1 && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
-		\hl{\nabla c\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		\hl{c_{,\mathbf{X}}\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
 		\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega_{0}\times0,
 	\end{alignedat}\right.
 \end{equation}
-\hl{initial condition right?!}
+There are several constitutive models so as to determine the energy densitiy functions $\Psi^{+}$, $\Psi^{-}$ and $\Psi_{p}$. These have been well outlined by \citet{03_PF_ductile} and within this work, it is only referred to this work. \hl{initial condition right?! or u0 v0 sufficient? -> dissertation Borden}
 
-and for the fourth-order phase-field theory
-\begin{equation} \label{eq:c4_equil_ductile}
-		 \left\{\begin{alignedat}{2}
-\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c - 2l_{0}^{2}\Delta c + l_{0}^{4}\Delta\left(\Delta c\right)=1 &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
-\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
-\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{n}} &= 0 && \quad \text{on } \partial\Omega\times\left(0,T\right) \\
-\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega\times0,
-\end{alignedat}\right.
+Since $\eqref{eq:crack_dens_fctals}_{2}$ includes second order spatial derivatives for the fourth-order phase-field theory, the relations \eqref{eq:relations_cons2} have to be adapted. For that, the Helmholtz free energy is assumed to take the form $\Psi=\Psi\left(\mathbf{C},\mathbf{C}^{p},\mathbf{Q},c,c_{,\mathbf{X}},c_{,ii},\dot{c}\right)$.
+\begin{equation} \label{eq:thermodyn_cons4}
+	\begin{aligned}
+	\int\limits_{\Omega_{0}}&\left(\dfrac{\partial\Psi}{\partial\mathbf{C}}:\dot{\mathbf{C}}+\dfrac{\partial\Psi}{\partial\mathbf{C}^{p}}:\dot{\mathbf{C}}^{p}+\dfrac{\partial\Psi}{\partial\mathbf{Q}}\cdot\dot{\mathbf{Q}}+\dfrac{\partial\Psi}{\partial c}\dot{c}+\dfrac{\partial\Psi}{\partial c_{,\mathbf{X}}}\cdot\dot{c}_{,\mathbf{X}}+\dfrac{\partial\Psi}{\partial c_{,jj}}\dot{c}_{,ii}+\dfrac{\partial\Psi}{\partial\dot{c}}\ddot{c}\right)\mathrm{d}\Omega_{0} \\
+	&\leq \int\limits_{\Omega_{0}}\left(\dfrac{1}{2}\mathbf{S}:\dot{\mathbf{C}}+\bm{\xi}\cdot\dot{c}_{,\mathbf{X}}-\pi\dot{c}\right)\mathrm{d}\Omega_{0}.
+	\end{aligned}
 \end{equation}
-respectively.
+So as to compare the terms on the left- and right-hand side and thus, to involve the Laplacian of $c$, the divergence theorem is applied:
+\begin{equation} \label{eq:div_theorem_Lapl_c}
+	\begin{aligned}
+		\int\limits_{\Omega_{0}}\dfrac{\partial\Psi}{\partial c_{,jj}}\dot{c}_{,ii}\mathrm{d}\Omega_{0} &= \int\limits_{\Omega_{0}}\left[\left(\dfrac{\partial\Psi}{\partial c_{,jj}}\dot{c}_{,i}\right)_{,i}-\left(\dfrac{\partial\Psi}{\partial c_{,jj}}\right)_{,i}\dot{c}_{,i}\right]\mathrm{d}\Omega_{0} \\
+		&= \int\limits_{\partial\Omega_{0}}\dfrac{\partial\Psi}{\partial c_{,jj}}\dot{c}_{,i}N_{i}\mathrm{d}\partial\Omega_{0}-\int\limits_{\Omega_{0}}\left(\dfrac{\partial\Psi}{\partial c_{,jj}}\right)_{,i}\dot{c}_{,i}\mathrm{d}\Omega_{0}.
+	\end{aligned}
+\end{equation}
+As a consequence, terms can be compared leading to following relations:
+\begin{equation} \label{eq:relations_cons4}
+	\begin{aligned}
+		\dfrac{\partial\Psi}{\partial\dot{c}} &= 0, \\
+		\dfrac{\partial\Psi}{\partial c_{,\mathbf{i}}} -\left(\dfrac{\partial\Psi}{\partial c_{,jj}}\right)_{,i} &= \xi_{,i}, \\
+		\dfrac{\partial\Psi}{\partial c_{,jj}} &= 0 \quad \text{on } \partial\Omega_{0}, \\
+		2\dfrac{\partial\Psi}{\partial\mathbf{C}} &= \mathbf{S}, \\
+		\left(\pi+\dfrac{\partial\Psi}{\partial c}\right)\dot{c} &\leq 0, \\
+		\mathbb{D}^{p} &\geq 0.
+	\end{aligned}
+\end{equation}
+The function $\beta$ stays the same as in \eqref{eq:relation_cons_beta}. Inserting this function and the relations \eqref{eq:relations_cons4} into \eqref{eq:microforce_balance} leads to the equation
+\begin{equation} \label{eq:balance_law_c4_ductile}
+	\left(\dfrac{\partial\Psi}{\partial c_{,i}}\right)_{,i}-\left(\dfrac{\partial\Psi}{\partial c_{,jj}}\right)_{,ii}-\dfrac{\partial\Psi}{\partial c}-\beta\dot{c}+l=0.
+\end{equation}
+Inserting the Helmholtz free energy from \eqref{eq:Helmholtz_ductile2} for $n=4$ into \eqref{eq:balance_law_c4_ductile} leads to the governing equations for the phase-field's evolution considering $n=4$.
+\begin{equation} \label{eq:c4_equil_ductile}
+	\left\{\begin{alignedat}{2}
+		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(g'\left(c\right)\Psi^{+}+g_{p}'\left(c\right)\Psi_{p}\right) + c - 2l_{0}^{2}\Delta c +l_{0}^{4}\Delta\left(\Delta c\right) &= 1 && \quad\text{on } \Omega\times\left(0,T\right) \\
+		\hl{\Delta c} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+		\hl{\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{N}} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
+\mathcal{H} &= \mathcal{H}_{0} && \quad \text{on } \Omega_{0}\times0  
+	\end{alignedat}\right.
+\end{equation}
+Note that the governing equations for brittle fracture could also have been derived using the approach regarding the balance laws. For a more detailed derivation, it is referred to \citep{11_PF_DissBorden}. \hl{initial condition right?! or u0 v0 sufficient? -> dissertation Borden}
