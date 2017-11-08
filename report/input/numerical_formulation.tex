@@ -90,16 +90,14 @@ For the fourth-order phase-field theory, the weak form considering ductile fract
 \end{alignedat}\right.
 \end{aligned}
 \end{equation} 
-where $\Delta^{\mathbf{X}}$ refers to the Laplacian with respect to the reference configuration. 
-
-\hl{\Delta^{\mathbf{X}}=c_{,ii}F_{,ii}^{2} \text{: How is the representation in differential (not index) notation?}}
+where $\Delta^{\mathbf{X}}$ refers to the Laplacian with respect to the reference configuration. Note that $\Delta^{\mathbf{X}}c=\sum\limits_{i}c_{,ii}F_{ii}^{2}$.
 
 \subsection{Spatial discretization} \label{sec:space_discr}
 Regarding the function spaces defined in \eqref{eq:fct_spaces}, especially the ones for the phase-field and the corresponding variations $\tilde{\mathcal{S}}_{n}$ and $\tilde{\mathcal{V}}_{n}$ (or the corresponding subspaces $\tilde{\mathcal{S}}_{n}^{h}$ and $\tilde{\mathcal{V}}_{n}^{h}$, respectively), there is a difficulty occurring within the Finite Element context. The definition of a Sobolev-Space reads
 \begin{equation} \label{eq:Hilbertspace}
 	H^{m}\left(\Omega\right) = \{u\in L^{2}\left(\Omega\right)|D^{\alpha}u\in L^{2}\left(\Omega\right),|\alpha|\leq m\}
 \end{equation}
-with $m\geq0$. In general, the solutions and its derivatives of Finite Element Analysis are continuous within an element. Unfortunately, they are generally not continuous between elements and thus, global continuity is lost. But for the fourth-order phase-field theory with $n=4$, a higher regularity is required. As a consequence, the traditional $C^{0}$ Finite Elements cannot be used. Using Isogeometric Finite Elements can circumvent this problem. Isogeometric Analysis (IGA) allows for an exact representation of geometries, even spherical or cylindrical shapes can be representated exactly which is not possible using standard Finite Elements. In general, the isogeometric basis is smooth which overcomes the problem of the necessity of a higher regularity and which leads to a more accurate stress representation \cite{01_PF_dyn_brittle}.
+with $m\geq0$. In general, the solutions and its derivatives of Finite Element Analysis are continuous within an element. Unfortunately, they are generally not continuous between elements and thus, global continuity is lost. But for the fourth-order phase-field theory with $n=4$, a higher regularity is required. As a consequence, the traditional $C^{0}$ Finite Elements cannot be used. Using Isogeometric Finite Elements can circumvent this problem. Isogeometric Analysis (IGA) allows for an exact representation of geometries, even spherical or cylindrical shapes can be represented exactly which is not possible using standard Finite Elements. In general, the isogeometric basis is smooth which overcomes the problem of the necessity of a higher regularity and which leads to a more accurate stress representation \cite{01_PF_dyn_brittle}.
 
 The main idea is to use the same basis for both, the analysis and the description of the model's geometric domain. Herefore, non-uniform rational B-Splines (NURBS) or T-Splines are used so as to compute with a smooth basis. Standard Finite Elements may be continuous but generally, they are not smooth. Since CAD geometries are based on NURBS, mesh changes like local refinements preserve the exact CAD geometry and no mapping between CAD geometry and FE geometry has to be established. \citep{11_PF_DissBorden}
 
@@ -126,7 +124,7 @@ For the second-order phase-field theory for brittle fracture, the residual vecto
 \begin{equation} \label{eq:res_vecs_c2}
 	\begin{aligned}
 		\mathbf{R}^{c}&=\{R_{A}^{c}\}, \\
-		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(4l_{0}^{2}\frac{\partial c^{h}}{\partial x_{i}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega}.
+		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(4l_{0}^{2}c^{h}_{,i},N_{A,i}\right)_{\Omega}.
 	\end{aligned}
 \end{equation}
 
@@ -134,7 +132,7 @@ For the fourth-order phase-field theory for brittle fracture, these residual vec
 \begin{equation} \label{eq:res_vecs_c4}
 	\begin{aligned}
 		\mathbf{R}^{c}&=\{R_{A}^{c}\}, \\
-		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(2l_{0}^{2}\frac{\partial c^{h}}{\partial x_{i}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega} - \left(l_{0}^{4}\frac{\partial^{2}c^{h}}{\partial x_{ii}^{2}},\frac{\partial^{2}N_{A}}{\partial x_{jj}^{2}}\right)_{\Omega}.
+		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} - \left(\left(\frac{4l_{0}\mathcal{H}}{\mathcal{G}_{c}}+1\right)c^{h},N_{A}\right)_{\Omega} - \left(2l_{0}^{2}c^{h}_{,i},N_{A,i}\right)_{\Omega} - \left(l_{0}^{4}c^{h}_{,ii},N_{A,jj}\right)_{\Omega}.
 	\end{aligned}
 \end{equation}
 
@@ -144,7 +142,7 @@ Analogously, for the second-order phase-field theory for ductile fracture, the r
 	\begin{alignedat}{2}
 		\mathbf{R}^{c}&=\{R_{A}^{c}\}, \\
 		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} &&- \left(\dfrac{2l_{0}}{J\mathcal{G}_{c}}\left(\beta_{e}g'\left(c^{h}\right)+\beta_{p}g_{p}'\left(c^{h}\right)\left<\Psi_{p}-\Psi_{0}\right>\right)+c^{h},N_{A}\right)_{\Omega} \\
-			& &&- \left(2l_{0}^{2}\frac{\partial c^{h}}{\partial x_{i}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega} - \left(4l_{0}^{2}\frac{\partial c^{h}}{\partial x_{I}},\frac{\partial N_{A}}{\partial x_{i}}\right)_{\Omega}
+			& &&- \left(4l_{0}^{2}c^{h}_{,I},N_{A,I}\right)_{\Omega}
 			\end{alignedat}
 	\end{aligned}
 \end{equation}
@@ -154,12 +152,10 @@ and for the corresponding fourth-order theory based on $\eqref{eq:weak_4_ductile
 	\begin{alignedat}{2}
 		\mathbf{R}^{c}&=\{R_{A}^{c}\}, \\
 		R_{A}^{c} &= \left(1,N_{A}\right)_{\Omega} &&- \left(\dfrac{2l_{0}}{J\mathcal{G}_{c}}\left(\beta_{e}g'\left(c^{h}\right)+\beta_{p}g_{p}'\left(c^{h}\right)\left<\Psi_{p}-\Psi_{0}\right>\right)+c^{h},N_{A}\right)_{\Omega} \\
-		 & &&- \left(2l_{0}^{2}\frac{\partial c^{h}}{\partial x_{I}},\frac{\partial N_{A}}{\partial x_{I}}\right)_{\Omega} - \left(l_{0}^{4}\frac{\partial^{2}c^{h}}{\partial x_{II}^{2}},\frac{\partial^{2}N_{A}}{\partial x_{JJ}^{2}}\right)_{\Omega}.
+		 & &&- \left(2l_{0}^{2}c^{h}_{,I},N_{A,I}\right)_{\Omega} - \left(l_{0}^{4}c^{h}_{,II},N_{A,JJ}\right)_{\Omega}.
 	\end{alignedat}
 	\end{aligned}
 \end{equation}
-
-\hl{\text{ToDo: Check residual vectors for } c \text{ (all four!).}}
 
 Considering time step $n$, time step size $\Delta t = t_{n+1}-t_{n}$, parameters $\alpha_{f},\alpha_{m},\beta,\gamma$ as well as vectors $\mathbf{u}_{n}$ and $\mathbf{c}_{n}$ for the control variable degrees-of-freedom of the displacements and phase-field (see \eqref{eq:fct_approx}), $\textbf{v}_{n}=\dot{\mathbf{u}}_{n}$ and $\mathbf{a}_{n}=\ddot{\mathbf{u}}_{n}$ are defined. The method then reads as follows:
 
