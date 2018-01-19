@@ -1,7 +1,7 @@
-\section{Phase-field formulation} \label{sec:formul}
-The phase-field model as a diffuse interface model does not introduce discontinuities into the solid but the fracture surface is approximated by a scalar valued field. Thus, the boundary between damaged and not damaged areas is smoothed. In the following parts, a model for brittle fracture as well as a second- and fourth-order model are presented. At first, the notation and formulation considering brittle fracture is outlined. Since this work focuses on brittle fracture, at the end of this section, differences in the formulation considering ductile fracture are outlined. A more detailed derivation of the governing equations considering ductile fracture can be found in \ref{appsec:ductile}. 
+\section{Mathematical formulation} \label{sec:formul}
+The phase-field model as a diffuse interface model does not introduce discontinuities into the solid but the fracture surface is approximated by a scalar valued field. Thus, the boundary between damaged and undamaged regions is smoothed. In the following parts, a model for brittle fracture as well as a second- and fourth-order model are presented. At first, the notation and formulation considering brittle fracture is introduced. Since this work focuses on brittle fracture, at the end of this section, differences in the formulation considering ductile fracture are outlined. A more detailed derivation of the governing equations considering ductile fracture can be found in \ref{appsec:ductile}. 
 
-For the rest of this paper, following notation is made (see \figref{fig:bodies}\subrefnew{fig:body_1}). The arbitrary body $\Omega\subset\mathbb{R}^{d}$ ($d\in\{1,2,3\}$) has external boundary $\partial\Omega$ and evolving internal discontinuity boundary (fracture surface) $\Gamma$. The displacement field at a given point $\mathbf{x}$ and time $t$ is given by $\mathbf{u}\left(\mathbf{x},t\right)\in\mathbb{R}^{d}$. Dirichlet boundary conditions $\mathbf{u}\left(\mathbf{x},t\right)=\mathbf{g}\left(\mathbf{x},t\right)$ on $\partial\Omega_{\mathbf{g}}$ and Neumann boundary conditions $\mathbf{t}\left(\mathbf{x},t\right)=\mathbf{h}\left(\mathbf{x},t\right)$ on $\partial\Omega_{\mathbf{h}}$ are imposed with $\partial\Omega_{\mathbf{g}}\cup\partial\Omega_{\mathbf{h}}=\partial\Omega$. $\mathbf{t}\left(\mathbf{x},t\right)$ describes a given traction vector force.
+For the rest of this paper, following notation is made (see \figref{fig:bodies}\subrefnew{fig:body_1}). The arbitrary body $\Omega\subset\mathbb{R}^{d}$ ($d\in\{1,2,3\}$) has external boundary $\partial\Omega$ and evolving internal discontinuity boundary $\Gamma$ (fracture surface). The displacement field at a given point $\mathbf{x}$ and time $t$ is given by $\mathbf{u}\left(\mathbf{x},t\right)\in\mathbb{R}^{d}$. Dirichlet boundary conditions $\mathbf{u}\left(\mathbf{x},t\right)=\mathbf{g}\left(\mathbf{x},t\right)$ on $\partial\Omega_{\mathbf{g}}$ and Neumann boundary conditions $\mathbf{t}\left(\mathbf{x},t\right)=\mathbf{h}\left(\mathbf{x},t\right)$ on $\partial\Omega_{\mathbf{h}}$ are imposed with $\partial\Omega_{\mathbf{g}}\cup\partial\Omega_{\mathbf{h}}=\partial\Omega$. $\mathbf{t}\left(\mathbf{x},t\right)$ describes a given traction vector force.
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[t]{0.4\textwidth}
@@ -30,7 +30,7 @@ where $\left(\cdot\right)^{s}$ refers to the symmetric part. Considering isotrop
 \end{equation}
 using the Lam\'{e} constants $\lambda$ and $\mu$ and $\left(\cdot\right):\left(\cdot\right)$ denoting the double contraction.
 
-According to the energetic approaches to fracture, the critical fracture energy density $\mathcal{G}_{c}$ defines the energy being necessary to create a unit area of fracture surface. Since translation of cracks shall be forbidden and extension, branching and merging shall be allowed, there is an irreversibility condition stating $\Gamma\left(t\right)\subseteq\Gamma\left(t+\Delta t\right), \forall \Delta t>0$.
+According to the energetic approaches to fracture, the critical fracture energy density $\mathcal{G}_{c}$ defines the energy being necessary to create a unit area of fracture surface. Since translation of cracks shall be forbidden but extension, branching and merging shall be allowed, there is an irreversibility condition stating that $\Gamma\left(t\right)\subseteq\Gamma\left(t+\Delta t\right), \forall \Delta t>0$.
 
 However, Griffith's fracture theory reaches its limits as soon as it is used to predict crack paths, nucleation of new cracks and complicated crack behaviours during kinking and branching. Thus, the problem is formulated in a variational sense which is shown in the following paragraphs. The phase-field approach can then be seen as a regularized version of this variational formulation. \citep{05_PF_ductile}
 
@@ -41,24 +41,24 @@ Newton's laws follow Hamilton's principle stating that the functional
 \begin{equation} \label{eq:lagr}
 	\mathcal{L}\left(\mathbf{u},\dot{\mathbf{u}},\Gamma\right) = \int\limits_{\Omega}\left(\frac{1}{2}\rho\dot{\mathbf{u}}\dot{\mathbf{u}}-\Psi_{e}\left(\bm{\varepsilon}\right)\right)\mathrm{d}\Omega - \int\limits_{\Gamma}\mathcal{G}_{c}\mathrm{d}\Gamma.
 \end{equation}
-The Euler-Lagrange Equation (ELE) is a differential equation whose solution satisfies the required equilibrium. Thus, this equation is also called the equation of motion \footnote{The term \textit{equation of motion} may be a bit misleading. It refers to the differential equation and not to its solution.}. A minimizer $q$ for \eqref{eq:lagr} satisfies the ELE
+The Euler-Lagrange Equation (ELE) is a differential equation whose solution satisfies the required equilibrium. Thus, this equation is also called the equation of motion\footnote{The term \textit{equation of motion} may be a bit misleading. It refers to the differential equation and not to its solution.}. A minimizer $q$ of \eqref{eq:lagr} satisfies the ELE
 \begin{equation} \label{eq:ELE_O2}
 	\dfrac{\partial\mathcal{L}}{\partial q}-\dfrac{\mathrm{d}}{\mathrm{d}t}\dfrac{\partial\mathcal{L}}{\partial\dot{q}}=0.
 \end{equation}
-For a given $\mathcal{L}=\mathcal{L}\left(q,\dot{q},\ddot{q}, t\right)$ this differential equation is changed to
+For a given $\mathcal{L}=\mathcal{L}\left(q,\dot{q},\ddot{q}, t\right)$ this differential equation changes to
 \begin{equation} \label{eq:ELE:_O4}
 	\dfrac{\partial\mathcal{L}}{\partial q}-\dfrac{\mathrm{d}}{\mathrm{d}t}\dfrac{\partial\mathcal{L}}{\partial\dot{q}}+\dfrac{\mathrm{d}^{2}}{\mathrm{d}t^{2}}\dfrac{\partial\mathcal{L}}{\partial\ddot{q}}=0
 \end{equation}
-\citep{01_B_LagrMech}. So as to circumvent problems of algorithmically tracking the propagating discontinuity $\Gamma$, the phase-field approach, which regularizes the just mentioned variational formulation, will be presented in the next chapters.
+\citep{01_B_LagrMech}. In \eqref{eq:lagr}, the fracture surface $\Gamma$ has to be known so as to evaluate this expression. Since this discontinuity is propagating, high computational costs have to be accepted so as to algorithmically track the propagating surface. So as to circumvent this, the \textit{phase-field} approach, which regularizes the just mentioned variational formulation, has been introduced. This will be presented in the next chapters.
 
-\subsection{Phase-field approximation} \label{sec:ph_approx}
-As can be seen in \figref{fig:bodies}\subrefnew{fig:body_2} the fracture surface $\Gamma$ is approximated by a scalar valued field $c\left(\mathbf{x},t\right)$. This field is called the phase-field. Values of $c=1$ represent regions away from the crack (undamaged material) whereas $c=0$ symbolises the crack. Now, in \eqref{eq:lagr} the surface integral and thus, the need for tracking the crack can be eliminated. The approximation reads as follows:
+\subsection{Phase-field theory} \label{sec:ph_approx}
+As can be seen in \figref{fig:bodies}\subrefnew{fig:body_2} the fracture surface $\Gamma$ is approximated by a scalar valued field $c\left(\mathbf{x},t\right)$. This field is called the  \textit{phase-field}. Values of $c=1$ represent regions away from the crack (undamaged material) whereas $c=0$ indicates totally broken material (at $c=0$, there is a crack). Now, in \eqref{eq:lagr} the surface integral and thus, the need for tracking the crack can be eliminated. The approximation reads as follows:
 \begin{equation} \label{eq:surf_int_approx}
 	\int\limits_{\Gamma}\mathcal{G}_{c}\mathrm{d}\Gamma \approx \int\limits_{\Omega}\mathcal{G}_{c}\Gamma_{c,n}\mathrm{d}\Omega.
 \end{equation}
-Obviously, the surface integral can now be approximately calculated without knowing or tracking the fracture surface. \eqref{eq:surf_int_approx} represents the fracture surface energy. The quantity $\Gamma_{c,n}$ is called the crack density functional which depends on a parameter $l_{0}$, the phase-field $c\left(\mathbf{x},t\right)$ and its spatial derivatives up to order $\frac{n}{2}$ ($\frac{\partial c}{\partial \mathbf{x}},..,\frac{\partial^{\frac{n}{2}} c}{\partial \mathbf{x}^{\frac{n}{2}}}$) with $n$ being an even number. $l_{0}\in\mathbb{R}^{+}$ represents a parameter controlling the width of the approximation of the crack (see \figref{fig:bodies}\subrefnew{fig:body_2}). It could be seen as a numerical regularization parameter or as an material parameter. \citet{01_PF_dyn_brittle} showed that a critical stress level $\sigma_{c}$ depends on $l_{0}$. Thus, this parameter is here seen as a material property. For a more detailed discussion it is referred to the investigations of \citet{07_PF_l0}.
+Obviously, the surface integral can now be approximately calculated without knowing or tracking the fracture surface. \eqref{eq:surf_int_approx} represents the fracture surface energy. The quantity $\Gamma_{c,n}$ is called the crack density functional which depends on a parameter $l_{0}$, the phase-field $c\left(\mathbf{x},t\right)$ and its spatial derivatives up to order $\frac{n}{2}$ ($\frac{\partial c}{\partial \mathbf{x}},..,\frac{\partial^{\frac{n}{2}} c}{\partial \mathbf{x}^{\frac{n}{2}}}$) with $n$ being an even number. $l_{0}\in\mathbb{R}^{+}$ represents a parameter controlling the width of the approximation of the crack (see \figref{fig:bodies}\subrefnew{fig:body_2}). It could be seen as a numerical regularization parameter or as an material parameter. \citet{01_PF_dyn_brittle} showed that a critical stress level $\sigma_{c}$ depends on $l_{0}$. Thus, here, this parameter is here seen as a material property. For a more detailed discussion it is referred to the investigations of \citet{07_PF_l0}.
 
-The notation $\Gamma_{c,n}$ already presages that $n$ determines the order of the approximation. \citet{02_PF_HO_brittle} presented a so called \textit{second-} and \textit{fourth-order phase-field theory}. For $n=2$, the crack density functional introduced by \citet{08_PF_Gammac2} is used where as for $n=4$, a new functional has been established:
+The notation $\Gamma_{c,n}$ already presages that $n$ determines the order of the approximation. \citet{02_PF_HO_brittle} have presented a so called \textit{second-} and \textit{fourth-order phase-field theory}. For $n=2$, the crack density functional introduced by \citet{08_PF_Gammac2} is used whereas for $n=4$, a new functional has been established:
 \begin{align}
 	\begin{aligned}   \label{eq:crack_dens_fctals}
 		\Gamma_{c,2} &= \dfrac{1}{4l_{0}}\left[\left(c-1\right)^{2}+4l_{0}^{2}|\nabla c|^{2}\right], \\
@@ -68,15 +68,15 @@ The notation $\Gamma_{c,n}$ already presages that $n$ determines the order of th
 These formulations have been analytically analysed. So as to keep things short, it is referred to the work by \citet{02_PF_HO_brittle} for more detailed information. Only one important aspect is mentioned here: ${\eqref{eq:crack_dens_fctals}}_{1}$ is well-posed variationally for all $c\in H^{1}\left(\Omega\right)$ and solutions will generally not show greater regularity. Thus, ${\eqref{eq:crack_dens_fctals}}_{2}$ has been introduced so as to provide higher regularity in the solutions.
 
 \subsection{Energy approximation} \label{sec:energy_approx}
-In the failure zone, there is a loss of material stiffness. So as to model this phenomenon, the elastic energy is split into contributions from tensile and compressive deformations\footnote{Originally, a parameter $k$ or $\eta<<1$ has been introduced by \citet{09_PF_k} into this equation so as to avoid ill-posedness. However, \citet{01_PF_dyn_brittle} found out that there is no necessity of setting $k>0$. Thus, the derivation of the governing evolution equations all include that $k=0$.}
+In the failure zone, there is a loss of material stiffness. So as to model this phenomenon, the elastic energy is split into contributions from tensile and compressive deformations\footnote{Originally, a parameter $k$ or $\eta<<1$ has been introduced by \citet{09_PF_k} into this equation so as to avoid ill-posedness. However, \citet{01_PF_dyn_brittle} have found out that there is no necessity of setting $k>0$. Thus, the derivation of the governing evolution equations all consider the case $k\equiv0$.}
 \begin{equation} \label{eq:el_energy}
 	\Psi_{e}\left(\bm{\varepsilon},c\right)=g\left(c\right) \Psi_{e}^{+}\left(\bm{\varepsilon}\right)+\Psi_{e}^{-}\left(\bm{\varepsilon}\right)
 \end{equation}
-with the so called degradation function $g\left(c\right)$. In \cite{01_PF_dyn_brittle} $g\left(c\right)^2$ has been used. Nevertheless, in \citep{03_PF_ductile} it has been examined that this quadratic function is not leading to a linear stress-strain-curve up to the point of critical stress. To overcome this problem, \citet{03_PF_ductile} propose the following parametrized cubic degradation function:
+with the so called degradation function $g\left(c\right)$. In \cite{01_PF_dyn_brittle}, $g\left(c\right)=c^{2}$ has been used. Nevertheless, in \citep{03_PF_ductile} it has been examined that this quadratic function is not leading to a linear stress-strain-curve up to the point of critical stress. To overcome this problem, \citet{03_PF_ductile} propose the following parametrized cubic degradation function:
 \begin{equation} \label{eq:cubic_degr_fct}
 	g\left(c\right)=m\left(c^{3}-c^{2}\right)+3c^{2}-2c^{3}
 \end{equation}
-with $m>0$ determining the slope of $g$ at $c=1$. It can be shown that for strains smaller than the critical strain for the quadratic degradation function the cubic degradation function leads to $\sigma=E\varepsilon$ as $m\rightarrow0$. Thus, $m=10^{-4}$ has been chosen in their numerical examples. The two major accomplishments using the cubic degradation function are at first, there is a nearly linear stress-strain behaviour up to the point of critical stress. Thus, linear elasticity is modelled more accurately. Secondly, it shows up that the critical stress is higher than for the quadratic degradation function (for $l_{0}$ fixed). Thus, a larger length scale parameter can be used so as to achieve the critical stress since $\sigma_{crit}^{cubic}\sim l_{0}^{-\frac{1}{2}}$. Thus, coarser meshes can be used in order to reduce computational effort. However, in the following only the function $g\left(c\right)$ is used so as to keep the derivation more generic. The splitting in \eqref{eq:el_energy} is achieved with the help of spectral decomposition of the strain:
+with $m>0$ determining the slope of $g$ at $c=1$. This cubic degradation function leads to $\sigma=E\varepsilon$ as $m\rightarrow0$ for strains up to the critical strain considering the quadratic degradation function. Thus, $m=10^{-4}$ has been chosen in their numerical examples. The two major accomplishments using the cubic degradation function are at first, the nearly linear stress-strain behaviour up to the point of critical stress. Thus, linear elasticity is modelled more accurately. Secondly, it shows up that the critical stress is higher than the one considering the quadratic degradation function (for $l_{0}$ fixed). Thus, a larger length scale parameter can be used so as to achieve the critical stress since $\sigma_{crit}^{cubic}\sim l_{0}^{-\frac{1}{2}}$. As a consequence, coarser meshes can be used in order to reduce computational effort. However, in the following only the function $g\left(c\right)$ is used so as to keep the derivation more generic. The splitting in \eqref{eq:el_energy} is achieved with the help of spectral decomposition of the strain:
 \begin{align} \label{eq:spectr_decomp}
 	\begin{aligned}
 		\bm{\varepsilon} = \mathbf{P}\bm{\Lambda}\mathbf{P}^{T} \quad \Rightarrow \quad \bm{\varepsilon}^{+} = \mathbf{P}\bm{\Lambda}^{+}\mathbf{P}^{T}, \text{ } \bm{\varepsilon}^{-} = \mathbf{P}\bm{\Lambda}^{-}\mathbf{P}^{T}, \\
@@ -90,15 +90,15 @@ $\bm{\Lambda}^{-}$ is analogously                                               
 		\Psi_{e}^{-}\left(\bm{\varepsilon}\right) &= \dfrac{1}{2}\lambda\left(tr\left(\bm{\varepsilon}\right)-\left<tr\left(\bm{\varepsilon}\right)\right>\right)^{2}+\mu tr\left[\left(\bm{\varepsilon}-\bm{\varepsilon}^{+}\right)^{2}\right].
 	\end{aligned}
 \end{align}
-The assumption here is that the sign of the principal strains determine tensile and compressive contributions. Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy given by
+The assumption here is that the sign of the principal strains determine tensile and compressive contributions. Putting \eqref{eq:el_energy} and \eqref{eq:surf_int_approx} together leads to the Helmholtz free energy:
 \begin{equation} \label{eq:Helmholtz}
-	\Psi_{n}=c^{2}\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
+	\Psi_{n}=g\left(c\right)\Psi_{e}^{+}+\Psi_{e}^{-}+\mathcal{G}_{c}\Gamma_{c,n}.
 \end{equation}
 
 \subsection{Strong form} \label{sec:strong_form}
 The governing equations will include one for enforcing stress equilibrium and the other will govern the evolution of the phase-field.
 
-Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\bm{\sigma}\mathbf{n}$ with outward-pointing normal vector on $\partial\Omega$, stress equilibrium is enforced by
+Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\bm{\sigma}\mathbf{n}$ with outward-pointing normal vector $\mathbf{n}$ on $\partial\Omega$, stress equilibrium is enforced by
 \begin{equation} \label{eq:stress_equil}
 	 \left\{\begin{alignedat}{2}
 \nabla\cdot\bm{\sigma}+\mathbf{b} &= \rho\ddot{\mathbf{u}} && \quad\text{on } \Omega\times\left(0,T\right) \\
@@ -108,7 +108,7 @@ Assuming given body forces $\mathbf{b}$ and traction vector forces $\mathbf{t}=\
 		\dot{\mathbf{u}} &= \mathbf{v}_{0} && \quad\text{on } \Omega\times0.
   \end{alignedat}\right.
 \end{equation}
-$\eqref{eq:stress_equil}_{1}$ represents the local form of the linear momentum balance with $\bm{\sigma}=c^{2}\frac{\partial\Psi_{e}^{+}}{\partial\bm{\varepsilon}}+\frac{\partial\Psi_{e}^{-}}{\partial\bm{\varepsilon}}$.
+$\eqref{eq:stress_equil}_{1}$ represents the local form of the linear momentum balance with $\bm{\sigma}=g\left(c\right)\frac{\partial\Psi_{e}^{+}}{\partial\bm{\varepsilon}}+\frac{\partial\Psi_{e}^{-}}{\partial\bm{\varepsilon}}$.
 
 As described in \secref{sec:formul_Griffith}, the Euler-Lagrange Equation can be used to find a minimizer of \eqref{eq:fctal_Hamilton}. Plugging \eqref{eq:crack_dens_fctals} and \eqref{eq:el_energy} into \eqref{eq:lagr} as well as using \eqref{eq:surf_int_approx} makes the use of the ELE possible. For this case, $q\hat{=}c$ and $\frac{\mathrm{d}}{\mathrm{d}t}\hat{=}\frac{\mathrm{d}}{\mathrm{d}\mathbf{x}}$. All this together leads to the governing equations for the evolution of the phase-field, namely $\eqref{eq:c2_equil}_{1}$ for the second- and $\eqref{eq:c4_equil}_{1}$ for the fourth-order phase-field theory. As can be seen in these equations, $\Psi_{e}^{+}$ has been replaced by the strain history field $\mathcal{H}$ enforcing the irreversibility condition $\Gamma\left(t\right)\subseteq\Gamma\left(t+\Delta t\right), \forall \Delta t>0$ in the strong form. This field satisfies the Kuhn-Tucker conditions for loading and unloading \cite{01_PF_dyn_brittle}:
 \begin{equation} \label{eq:KuhnTucker}
@@ -116,7 +116,7 @@ As described in \secref{sec:formul_Griffith}, the Euler-Lagrange Equation can be
 \end{equation}
 In the work of \citet{04_B_VarBrittleProve2} a detailed motivation for the introduction of this field can be found. It can also be used to model pre-existing cracks or geometrical features \cite{01_PF_dyn_brittle}.
 
-The strong form of the governing equations for the phase-field's evolution are then given by:
+As a result, the strong forms of the governing equations for the phase-field's evolution are given by:
 
 \textbf{n=2:}
 
@@ -138,10 +138,10 @@ c &= c_{0} && \quad \text{on } \Omega\times0
 c &= c_{0} && \quad \text{on } \Omega\times0  
 \end{alignedat}\right.
 \end{equation}
-with the derivative of the used degradation function $g'\left(c\right)$ (see \eqref{eq:cubic_degr_fct}). The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}. The numerical approximation of the solution of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The last topic of the this section is the difference in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
+with the derivative $g'\left(c\right)$ of the used degradation function (see \eqref{eq:cubic_degr_fct}). The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}. The numerical approximation of the solutions of \eqref{eq:c2_equil} and \eqref{eq:c4_equil} are outlined in \secref{sec:num_formul}. The following section reveals the differences in modelling ductile fracture in contrast to brittle fracture which has been considered up to this point.
 
 \subsection{Ductile fracture} \label{sec:ductile_frac}
-So as to motivate this section, at first the differences between models of brittle and ductile fracture are examined. Up to this point of this paper, linear elasticity has been assumed. In this context, brittle fracture has been formulated in a variational way. By introducing the phase-field approximation, a regularized formulation of the variational one has been established. The corresponding stress-strain-curves and the procedure are illustrated in \figref{fig:elastic}.
+In this section, the differences between models of brittle and ductile fracture are examined. Up to this point of this paper, linear elasticity has been assumed. In this context, brittle fracture has been formulated in a variational way. By introducing the phase-field approximation, a regularized formulation of the variational one has been established. The corresponding stress-strain-curves and the procedure are illustrated in \figref{fig:elastic}.
 \begin{table}[!ht]
 	\begin{center}
 	\begin{tabular}{|c||c|c|c|}
@@ -154,7 +154,7 @@ So as to motivate this section, at first the differences between models of britt
 		\hline
 	\end{tabular}
 	\end{center}
-\captionof{figure}{Brittle fracture: Process from linear elasticity over the variational formulation towards the phase-field approximation. \cite{06_PF_ductile}} \label{fig:elastic}
+\captionof{figure}{Brittle fracture: Process from linear elasticity over the variational formulation towards the phase-field approximation. Note that $E\left(\mathbf{u}\right)$ refers to the integral of the elastic energy density $\Psi_{e}$ over the body $\Omega$: $E\left(\mathbf{u}\right)=\int\limits_{\Omega}\Psi_{e}\left(\bm{\varepsilon}\left(\mathbf{u}\right)\right)\mathrm{d}\Omega$. \cite{06_PF_ductile}} \label{fig:elastic}
 \end{table}
 
 \begin{table}[!ht]
@@ -169,6 +169,6 @@ So as to motivate this section, at first the differences between models of britt
 		\hline
 	\end{tabular}
 	\end{center}
-\captionof{figure}{Ductile fracture: Process from plasticity towards the phase-field approximation. The variational formulation has not been established yet. \cite{06_PF_ductile}} \label{fig:plastic}
+\captionof{figure}{Ductile fracture: Process from plasticity towards the phase-field approximation. The variational formulation has not been established yet. As before, $E\left(\bm{\varepsilon}^{e},\bm{\varepsilon}^{p},\alpha\right)$ refers to the integral of the energy density over the body $\Omega$, for example considering the $J_{2}$-plasticity framework: $E\left(\bm{\varepsilon}^{e},\bm{\varepsilon}^{p},\alpha\right)=\int\limits_{\Omega}\left[\Psi_{e}\left(\bm{\varepsilon}^{e}\right)+\Psi_{p}\left(\alpha\right)\right]\mathrm{d}\Omega$. \cite{06_PF_ductile}} \label{fig:plastic}
 \end{table}
-The variational formulation has been well established. Thus, the regularized version using the phase-field approximation could be found. As the dashed lines in \figref{fig:plastic} reveal, there is no variational formulation of ductile fracture found yet. Thus, the foundation of the regularized version is not as easy as for brittle fracture. So as to circumvent this problem, the derivation of the governing equations considering ductile fracture are based on microforces and balance laws. So as to keep the focus of this work on brittle fracture, the derivation can be found in \ref{appsec:ductile}. Note that the governing equations for brittle fracture could also have been derived using the approach based on the balance laws, especially the microforce balance. For a more detailed derivation, it is referred to \citep{11_PF_DissBorden}. 
+The variational formulation has been well established. Thus, the regularized version using the phase-field approximation could be found. As the dashed lines in \figref{fig:plastic} reveal, there is no variational formulation of ductile fracture found yet. Thus, the foundation of the regularized version is not as straightforward as for brittle fracture. So as to circumvent this problem, the derivation of the governing equations considering ductile fracture are based on microforces and balance laws. So as to keep the focus of this work on brittle fracture, the derivation can be found in \ref{appsec:ductile}. Note that the governing equations for brittle fracture could also have been derived using the approach based on the balance laws, especially the microforce balance. For a more detailed derivation, it is referred to \citep{11_PF_DissBorden}. 
