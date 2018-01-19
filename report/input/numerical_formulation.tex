@@ -1,8 +1,8 @@
 \section{Numerical formulation} \label{sec:num_formul}
-Formulas \eqref{eq:stress_equil} and \eqref{eq:c2_equil} or \eqref{eq:c4_equil}, respectively, represent the strong form of the given problem. As throughout this work, brittle fracture is considered and the weak form is derived. Subsequently, an Isogeometric Analysis framework as well as a time integration scheme is presented.
+Formulas \eqref{eq:stress_equil} and \eqref{eq:c2_equil} or \eqref{eq:c4_equil}, respectively, represent the strong forms of the given problem. As throughout this work, brittle fracture is considered and the weak as well as the semidiscrete Galerkin forms are derived. Subsequently, an isogeometric analysis framework as well as an appropriate time integration scheme is presented.
 
 \subsection{Weak and semidiscrete Galerkin form} \label{sec:weak_Gal_form}
-For the derivation of the weak form, at first, suitable function spaces have to be defined:
+Suitable function spaces for the derivation of the weak forms are the defined by:
 \begin{equation} \label{eq:fct_spaces}
 	\begin{aligned}
 		\bm{\mathcal{S}} &= \{\mathbf{u}\left(t\right)\in\left(H^{1}\left(\Omega\right)\right)^{d}|\mathbf{u}\left(t\right)=\mathbf{g} \text{ on }\partial\Omega_{\mathbf{g}}\}, \\
@@ -12,7 +12,7 @@ For the derivation of the weak form, at first, suitable function spaces have to 
 	\end{aligned}
 \end{equation}
 
-So as to obtain the weak form, the governing equations have to be multiplied with testing functions, the divergence theorem has to be applied and boundary conditions need to be plugged in. Taking the testing functions from the spaces $\mathbf{\mathcal{V}}$ and $\tilde{\mathcal{V}}_{n}$, respectively, leads to the following weak forms for the second- and fourth-order phase-field theory for brittle fracture:
+The weak forms are obtained by multiplying the governing equations with testing functions, applying the divergence theorem and inserting boundary conditions. Taking the testing functions from the spaces $\mathbf{\mathcal{V}}$ and $\tilde{\mathcal{V}}_{n}$, respectively, leads to the following weak forms for the second- and fourth-order phase-field theory of dynamic brittle fracture:
 
 \textbf{n=2:}$\quad$ Find $\mathbf{u}\left(t\right)\in\bm{\mathcal{S}}$ and $c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right]$ so that $\forall \mathbf{w}\in\bm{\mathcal{V}}$ and $\forall q\in\tilde{\mathcal{V}}_{2}$:
 \begin{equation} \label{eq:weak_2}
@@ -41,7 +41,7 @@ So as to obtain the weak form, the governing equations have to be multiplied wit
 \end{equation}
 with $\left(\cdot,\cdot\right)_{\Omega}$ denoting the inner product with respect to the $L^{2}$-norm.
 
-So as to solve problems \eqref{eq:weak_2} and \eqref{eq:weak_4}, it is necessary to choose finite-dimensional subspaces to the function spaces mentioned in \eqref{eq:fct_spaces}. Let $\bm{\mathcal{S}}^{h}\subset\bm{\mathcal{S}}$, $\bm{\mathcal{V}}^{h}\subset\bm{\mathcal{V}}$, $\tilde{\mathcal{S}}_{n}^{h}\subset\tilde{\mathcal{S}}_{n}$, $\tilde{\mathcal{V}}_{n}^{h}\subset\tilde{\mathcal{V}}_{n}$ and let $N_{A}\left(\mathbf{x}\right)$ denote the shape functions within the Finite Element approximation. Furthermore, the required functions within an element (with $n_{\text{nodes}}$ denoting the number of nodes per element) are approximated as linear combinations of these shape functions:
+The problems \eqref{eq:weak_2} and \eqref{eq:weak_4} can be approximately solved by choosing finite-dimensional subspaces to the function spaces mentioned in \eqref{eq:fct_spaces}. Let $\bm{\mathcal{S}}^{h}\subset\bm{\mathcal{S}}$, $\bm{\mathcal{V}}^{h}\subset\bm{\mathcal{V}}$, $\tilde{\mathcal{S}}_{n}^{h}\subset\tilde{\mathcal{S}}_{n}$, $\tilde{\mathcal{V}}_{n}^{h}\subset\tilde{\mathcal{V}}_{n}$ and let $N_{A}\left(\mathbf{x}\right)$ denote the shape functions within the finite element approximation. The required functions within an element (with $n_{\text{nodes}}$ denoting the number of nodes per element) are approximated as linear combinations of these shape functions:
 \begin{equation} \label{eq:fct_approx}
 	\begin{aligned}
 	\begin{alignedat}{2}
@@ -52,31 +52,27 @@ So as to solve problems \eqref{eq:weak_2} and \eqref{eq:weak_4}, it is necessary
 	\end{alignedat}
 	\end{aligned}
 \end{equation}
-In order to obtain the semidiscrete Galerkin form of the problem, these approximations $\left(\cdot\right)\left(\mathbf{x},t\right)\approx\left(\cdot\right)^{h}\left(\mathbf{x},t\right)$ have to be plugged in into \eqref{eq:weak_2} and \eqref{eq:weak_4}. Changing the function spaces in these formulations and inserting \eqref{eq:fct_approx} will lead to the semidiscrete Galerkin form. These forms are not shown explicitly here due to the fact that only the superscript $\left(\cdot\right)^{h}$ has to be written next to the functions and function spaces. Apart from that, they are identical to the weak forms. Note that for the cubic degradation function \eqref{eq:cubic_degr_fct}, the first term in both, the second- and fourth-order phase-field evolution equation, needs to be linearized. Since the phase-field is only scalar-valued, the linearization around $c_{0}$ is straight-forward:
-\begin{equation} \label{eq:cubic_degr_fct_lin}	
-	\begin{aligned}
-		g'\left(c\right) &= m\left(3c^{2}-2c\right)+6c-6c^{2}, \\
-		g'_{lin}\left(c\right) &= m\left(3\left(c_{0}^{2}+2c_{0}\left(c-c_{0}\right)\right)-2c\right)+6c-6\left(c_{0}^{2}+2c_{0}\left(c-c_{0}\right)\right).
-	\end{aligned}
+The semidiscrete Galerkin forms of the problems are obtained by inserting these approxi\-mations $\left(\cdot\right)\left(\mathbf{x},t\right)\approx\left(\cdot\right)^{h}\left(\mathbf{x},t\right)$ into \eqref{eq:weak_2} and \eqref{eq:weak_4}. Changing the function spaces in these formulations and inserting \eqref{eq:fct_approx} will lead to the semidiscrete Galerkin forms. These forms are not shown explicitly here due to the fact that only the superscript $\left(\cdot\right)^{h}$ has to be written next to the functions and function spaces. Apart from that, they are identical to the weak forms. Note that for the cubic degradation function \eqref{eq:cubic_degr_fct}, the first term in both, the second- and fourth-order phase-field evolution equation, needs to be linearized:
+\begin{equation} \label{eq:cubic_degr_fct_lin}
+		g'_{lin}\left(c\right) = m\left(3c^{2}-2c\right)+6c-6c^{2}.
 \end{equation}
-\hl{c_{0}=0\text{??}}
 
-$\Gamma$-convergence has already been shown for the second-order phase-field theory but it has not been proved for the fourth-order theory yet. However, \citet{02_PF_HO_brittle} have showed that the latter is well behaved in numerical examples. Comments on existing results of the higher-order model will shortly be outlined in \secref{sec:concl}.
+$\Gamma$-convergence has already been shown for the second-order phase-field theory but it has not been proved for the fourth-order theory yet. \citet{02_PF_HO_brittle} have shown that the latter is well behaved in numerical examples. Comments on existing results of the higher-order model will shortly be outlined in \secref{sec:concl}.
 
 
 
 \subsection{Spatial discretization} \label{sec:space_discr}
-Regarding the governing equation of the phase-field's evolution for the fourth-order phase-field theory $\eqref{eq:weak_4}_{2}$, the term $\Delta c$ reveals that the numerical solution of the phase-field $c$ needs to be globally twice continuous differentiable. Within the Finite Element context, this leads to a significant problem. Since in general, standard Finite Element Analysis is based on a continuous but not a smooth basis, the solutions are not globally twice continuous differentiable so that the term $\Delta c$ on $\Omega$ would not be well-defined. As a consequence, the traditional Finite Elements cannot be used within this context. Using Isogeometric Finite Elements can circumvent this problem. Isogeometric Analysis (IGA) allows for an exact representation of geometries, even spherical or cylindrical shapes can be represented exactly which is not possible using standard Finite Elements. In general, the isogeometric basis is smooth which overcomes the problem of the necessity of a higher regularity. As an additional benefit, it leads to a more accurate stress representation \cite{01_PF_dyn_brittle}.
+Regarding the governing equation of the phase-field's evolution for the fourth-order phase-field theory $\eqref{eq:weak_4}_{2}$, the term $\Delta c$ reveals that the numerical solution of the phase-field $c$ needs to be globally continuous differentiable. Within the finite element context, this leads to a significant problem. In general, standard finite element analysis is based on a continuous but not a smooth basis. Within an element, the solution is continuous differentiable but across the element boundaries this does not hold true. Thus, the term $\Delta c$ on $\Omega$ would not be well-defined. As a consequence, the traditional finite elements cannot be used within this context. Using isogeometric finite elements can circumvent this problem. Isogeometric Analysis (IGA) allows for an exact representation of geometries, even spherical or cylindrical shapes can be represented exactly which is not possible using standard finite elements. In general, the isogeometric basis is smooth which overcomes the problem of the necessity of a higher regularity. As an additional benefit, it leads to a more accurate stress representation \cite{01_PF_dyn_brittle}.
 
-As already described in \secref{sec:intro}, the main idea is to use the same basis for both, the analysis and the description of the model's geometric domain. Herefore, B-Splines, non-uniform rational B-Splines (NURBS) or T-Splines are used so as to compute with a smooth basis. The function approximations \eqref{eq:fct_approx} stay the same. Only the shape functions $N_{A}$ differ from classical Finite Element Analysis. Since CAD geometries are based on NURBS, mesh changes like local refinements preserve the exact CAD geometry and no mapping between CAD geometry and FE geometry has to be established. \citep{11_PF_DissBorden}
+As already described in \secref{sec:intro}, the main idea is to use the same basis for both, the analysis and the description of the model's geometric domain. Splines, for example Non-Uniform Rational B-Splines (NURBS) or T-Splines, are used so as to compute with a smooth basis. The function approximations \eqref{eq:fct_approx} stay the same. Only the shape functions $N_{A}$ differ from classical finite element analysis. Since CAD geometries are based on NURBS, mesh changes like local refinements preserve the exact CAD geometry and no mapping between CAD geometry and FE geometry has to be established. \citep{11_PF_DissBorden}
 
-Especially, recent works like \cite{17_IGA_LRNURBS} provide a mechanism for the local refinement of the splines used in IGA. Local refinement is surely necessary so as to resolve and capture complex crack patterns in detail and in order to achieve accurate numerical results \cite{01_PF_dyn_brittle}.
+Recent works like \cite{17_IGA_LRNURBS} provide a mechanism for the local refinement of the splines used in IGA. Local refinement is necessary so as to resolve and capture complex crack patterns in detail and in order to achieve accurate numerical results \cite{01_PF_dyn_brittle}.
 
 
 \subsection{Time discretization} \label{sec:time_discr}
-Since this work deals with dynamic fracture, there is a need for an appropriate time integration scheme. Here, a monolithic generalized-$\alpha$ method is presented. This implicit method has been proposed by \citet{10_PF_genAlpha} in 1993. Advantages of this method are its second order accuracy as well as unconditonal stability provided that the parameters are well chosen. The notation used here is taken from the work of \citet{02_PF_HO_brittle} and \citet{01_PF_dyn_brittle}, respectively.
+This work deals with dynamic fracture so that there is a need for an appropriate time integration scheme. In the following, a monolithic generalized-$\alpha$ method is presented. This implicit method has been proposed by \citet{10_PF_genAlpha} in 1993. Advantages of this method are its second order accuracy as well as unconditional stability provided that the parameters are well chosen. The notation used here is taken from the work of \citet{02_PF_HO_brittle} and \citet{01_PF_dyn_brittle}, respectively.
 
-On the basis of $\eqref{eq:weak_2}_{1}$, $\eqref{eq:weak_4}_{1}$ and \eqref{eq:fct_approx}, let the residual vectors for the displacement be defined as
+On the basis of $\eqref{eq:weak_2}_{1}$, $\eqref{eq:weak_4}_{1}$ and \eqref{eq:fct_approx}, let the residual vectors for the displacement be defined as:
 \begin{equation} \label{eq:res_vecs_u}
 	\begin{aligned}
 		\mathbf{R}^{u}&=\{R_{A,i}^{u}\}, \\
@@ -85,13 +81,10 @@ On the basis of $\eqref{eq:weak_2}_{1}$, $\eqref{eq:weak_4}_{1}$ and \eqref{eq:f
 \end{equation}
 with $i$'th Euclidean basis vector $\mathbf{e}_{i}$ and
 \begin{equation}
-	B_{A}^{ijk}=\frac{1}{2}\left(\frac{\partial N_{A}}{\partial x_{j}}\delta_{ik}+\frac{\partial N_{A}}{\partial x_{k}}\delta_{ij}\right)
+	B_{A}^{ijk}=\frac{1}{2}\left(\frac{\partial N_{A}}{\partial x_{j}}\delta_{ik}+\frac{\partial N_{A}}{\partial x_{k}}\delta_{ij}\right).
 \end{equation}
-so that $\epsilon_{ijk}=\sum_{A}B_{A}^{ijk}u_{A,i}$.
 
-\hl{\text{Why does this need to hold true? What is } u_{A,i} \text{?} (\mathbf{u}^{h}\approx\sum_A N_A \mathbf{u}_A \text{ -or- } u_i^h=\sum_A N_A u_{iA})}
-
-For the second-order phase-field theory of brittle fracture, the residual vectors based on $\eqref{eq:weak_2}_{2}$ are given by
+For the second-order phase-field theory of brittle fracture, the residual vectors based on $\eqref{eq:weak_2}_{2}$ are given by:
 \begin{equation} \label{eq:res_vecs_c2}
 	\begin{aligned}
 		\mathbf{R}^{c}&=\{R_{A}^{c}\}, \\
@@ -124,7 +117,7 @@ Given $\mathbf{u}_{n}$, $\mathbf{v}_{n}$ and $\mathbf{a}_{n}$. Find $\mathbf{u}_
 \end{alignedat}
 \end{aligned}
 \end{equation}
-These equations directly show that this method is an implicit one. Thus, at each time step a Newton-Raphson iteration is required so as to solve the nonlinear equations \eqref{eq:gen_alpha}:
+These equations reveal that this method is an implicit one. At each time step, a Newton-Raphson iteration is required so as to solve the nonlinear equations \eqref{eq:gen_alpha}:
 
 Until convergence is reached, solve the linearized system:
 \begin{equation} \label{eq:NewtonRaphson}
@@ -135,13 +128,13 @@ Until convergence is reached, solve the linearized system:
 	\end{alignedat}
 	\end{aligned}
 \end{equation}
-with $i$ denoting the current Newton-Raphson iteration and $\mathbf{R}_{i}^{u}$ and $\mathbf{R}_{i}^{c}$ being the current residuals (see $\eqref{eq:gen_alpha}_{1-2}$). Following \citet{01_PF_dyn_brittle}, convergence can be for instance defined by
+with $i$ denoting the current Newton-Raphson iteration and $\mathbf{R}_{i}^{u}$ and $\mathbf{R}_{i}^{c}$ being the current residuals (see $\eqref{eq:gen_alpha}_{1-2}$). Following \citet{01_PF_dyn_brittle}, convergence can be for instance defined by:
 \begin{equation} \label{eq:conv_cond}
 	\max\{\frac{||\mathbf{R}_{i}^{u}||_{L^{2}}}{||\mathbf{R}_{0}^{u}||_{L^{2}}},\frac{||\mathbf{R}_{i}^{c}||_{L^{2}}}{||\mathbf{R}_{0}^{c}||_{L^{2}}}\}\leq tol
 \end{equation}
-with $tol$ for example set to $10^{-4}$.
+with $tol$ set to $10^{-4}$.
 
-\citet{10_PF_genAlpha} have proposed explicit formulas for the parameters. \citet{01_PF_dyn_brittle} observed that these show a good behaviour in the context of phase-field models of dynamic brittle fracture:
+\citet{10_PF_genAlpha} have proposed explicit formulas for the parameters. \citet{01_PF_dyn_brittle} have observed that these show a good behaviour in the context of phase-field models of dynamic brittle fracture:
 \begin{equation}
 	\begin{aligned}
 		\alpha_{f} &= \frac{1}{\rho_{\infty}+1}, \\
@@ -150,4 +143,4 @@ with $tol$ for example set to $10^{-4}$.
 		\gamma &= \frac{1}{2}+\alpha_{m}-\alpha_{f},
 	\end{aligned}
 \end{equation}
-with spectral radius $\rho_{\infty}$ of the amplification matrix, describing the numerical dissipation from time step $t_{n}$ to $t_{n+1}$. Thus, second-order accuracy and unconditional stability are reached for a second-order linear problem.
+with spectral radius $\rho_{\infty}$ of the amplification matrix describing the numerical dissipation from time step $t_{n}$ to $t_{n+1}$. Thus, second-order accuracy and unconditional stability are reached for a second-order linear problem.
