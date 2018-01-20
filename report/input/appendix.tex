@@ -12,17 +12,17 @@ In the \textit{cohesive segments method}, the crack is represented by a set of o
 \section{Ductile fracture} \label{appsec:ductile}
 In \secref{sec:ductile_frac}, the differences between modelling brittle and ductile fracture have been outlined. In the following, energy laws are derived and put together to a thermodynamically consistent formulation for ductile fracture.
 
-\citet{06_PF_ductile} proposes a method similar to the one presented for brittle fracture. The major change lies in the Helmholtz free energy (see \eqref{eq:Helmholtz}) which is replaced by
+\citet{06_PF_ductile} propose a method similar to the one presented for brittle fracture. The major change lies in the Helmholtz free energy (see \eqref{eq:Helmholtz}) which is replaced by
 \begin{equation} \label{eq:Helmholtz_ductile1}
 	\Psi_{n} = g\left(c,p\right)\Psi_{e}^{+}\left(\bm{\varepsilon}\right)+\Psi_{e}^{-}\left(\bm{\varepsilon}\right)+\Psi_{p}\left(\alpha\right)+\mathcal{G}_{c}\Gamma_{c,n}
 \end{equation}
-with the new degradation function $g\left(c,p\right)=c^{2p}+\eta$ and $p=\frac{\epsilon_{eq}^{p}}{\epsilon_{eq,crit}^{p}}$, $\epsilon_{eq}^{p}\left(t\right)=\sqrt{\frac{2}{3}}\int\limits_{0}^{t}\sqrt{\dot{\bm{\varepsilon}}:\dot{\bm{\varepsilon}}}\mathrm{d}t$. The plastic energy density function considering linear isotropic hardening reads $\Psi_{p}\left(\alpha\right)=\sigma_{y}\alpha+\frac{1}{2}h\alpha^{2}$ with yield stress $\sigma_{y}$, hardening variable $\alpha$ and hardening modulus $h>0$. The idea behind this new degradation function is that $c$ depends on $p$ so that the fracture process can be seen as the accumulation of ductile damage. $\Psi_{p}$ will take the dominating role over $\Psi_{e}^{+}$ and thus, a plasticity-driven fracture initiation is achieved. However, here a more abstract derivation of the governing equations will be presented which is based on the work of \citet{03_PF_ductile}.
+with the new degradation function $g\left(c,p\right)=c^{2p}+\eta$ and $p=\frac{\epsilon_{eq}^{p}}{\epsilon_{eq,crit}^{p}}$, $\epsilon_{eq}^{p}\left(t\right)=\sqrt{\frac{2}{3}}\int\limits_{0}^{t}\sqrt{\dot{\bm{\varepsilon}}:\dot{\bm{\varepsilon}}}\mathrm{d}t$. The plastic energy density function considering linear isotropic hardening reads $\Psi_{p}\left(\alpha\right)=\sigma_{y}\alpha+\frac{1}{2}h\alpha^{2}$ with yield stress $\sigma_{y}$, hardening variable $\alpha$ and hardening modulus $h>0$. The idea behind this new degradation function is that $c$ depends on $p$ so that the fracture process can be seen as the accumulation of ductile damage. $\Psi_{p}$ will take the dominating role over $\Psi_{e}^{+}$ and thus, a plasticity-driven fracture initiation is achieved. In the following, a more abstract derivation of the governing equations will be presented which is based on the work of \citet{03_PF_ductile}.
 
-In \secref{sec:formul_Griffith} small deformations and deformation gradients have been assumed. Since this does not hold true for ductile fracture (see \figref{fig:plastic}), another approach for the derivation of the strong form is chosen. As \citet{03_PF_ductile} have outlined, previous approaches on ductile fracture suffer in the fact that yield surface and hardening modulus are not effected by the phase-field's evolution. Thus, at some point plastic strains saturate and deformation is again dominated by recoverable elastic strains. The notation mentioned at the beginning of this section stays the same. The deformation gradient, which cannot be considered small anymore, now reads
+In \secref{sec:formul_Griffith}, small deformations and deformation gradients have been assumed. Since this does not hold true for ductile fracture (see \figref{fig:plastic}), another approach for the derivation of the strong form is chosen. As \citet{03_PF_ductile} have outlined, previous approaches on ductile fracture suffer in the fact that yield surface and hardening modulus are not effected by the phase-field's evolution. Thus, at some point, plastic strains saturate and deformation is again dominated by recoverable elastic strains. The notation mentioned at the beginning of this section stays the same. The deformation gradient, which cannot be considered small anymore, now reads
 \begin{equation} \label{eq:deform_grad}
 	\mathbf{F}=\dfrac{\partial\varphi\left(\mathbf{X},t\right)}{\partial\mathbf{X}}
 \end{equation}
-with deformation map $\varphi:\left(\Omega_{0}\times\mathbb{R}\right)\rightarrow\mathbb{R}^{d}$, body $\Omega_{0}$ in the reference configuration  and $\mathbf{x}=\varphi\left(\mathbf{X},t\right)$. \eqref{eq:deform_grad} is now decomposed into the elastic and plastic deformations gradient:
+with deformation map $\varphi:\left(\Omega_{0}\times\mathbb{R}\right)\rightarrow\mathbb{R}^{d}$, body $\Omega_{0}$ in the reference configuration  and $\mathbf{x}=\varphi\left(\mathbf{X},t\right)$. \eqref{eq:deform_grad} is decomposed into the elastic and plastic deformations gradient:
 \begin{equation} \label{eq:deform_grad_decomp}
 	\mathbf{F}=\mathbf{F}^{e}\mathbf{F}^{p}.
 \end{equation}
@@ -30,17 +30,17 @@ In contrast to \eqref{eq:Helmholtz}, the new stored energy functional proposed b
 \begin{equation} \label{eq:fctal_ductile}
 	\tilde{\Psi}\left(\mathbf{F},c,c_{,\mathbf{X}},\mathbf{F}^{p},\alpha\right) = \int\limits_{\Omega_{0}}\left[g\left(c\right)\Psi^{+}\left(\mathbf{F},\mathbf{F}^{p}\right)+\Psi^{-}\left(\mathbf{F},\mathbf{F}^{p}\right)+g_{p}\left(c\right)\Psi_{p}\left(\alpha\right)+\Gamma_{c,n}\right]\mathrm{d}\Omega_{0}
 \end{equation}
-with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $\mathbf{X}$.\footnote{Note that for ductile fracture in this work, $\nabla\left(\cdot\right)$ is replaced by the index notation $\left(\cdot\right)_{,\mathbf{X}}$ or $\left(\cdot\right)_{,\mathbf{x}}$, respectively, in order to distinguish between derivatives with respect to the reference or current configuration. For brittle fracture, everything has been derived within the current configuration.} As in the work by \citet{06_PF_ductile}, an effective plastic work contribution $\Psi_{p}$ depending on the internal hardening variable $\alpha$ has been added. The plastic degradation function $g_{p}\left(c\right)$ provides, analogous to $g\left(c\right)$, a mechanism for crack growth driven by the development of plastic strains.
+with $\left(\cdot\right)_{\mathbf{X}}$ denoting the derivative with respect to $\mathbf{X}$.\footnote{Note that for ductile fracture, $\nabla\left(\cdot\right)$ is replaced by the index notation $\left(\cdot\right)_{,\mathbf{X}}$ or $\left(\cdot\right)_{,\mathbf{x}}$, respectively, in order to distinguish between derivatives with respect to the reference or current configuration. For brittle fracture, everything has been derived within the current configuration.} As in the work by \citet{06_PF_ductile}, an effective plastic work contribution $\Psi_{p}$ depending on the internal hardening variable $\alpha$ has been added. The plastic degradation function $g_{p}\left(c\right)$ provides, analogously to $g\left(c\right)$, a mechanism for crack growth driven by the development of plastic strains.
 
 \subsection{Balance laws and strong form} \label{appsec:balance_laws}
-The approach for the derivation of the governing equations is based on balance laws. To keep things short, not every single step of their derivation but more likely their results are presented here. Microforce balance laws are assumed to model the phase-field's evolution within a large deformation setting. The balance of linear momentum and angular momentum in the reference configuration lead to (also see $\eqref{eq:stress_equil}_{1}$)
+The approach for the derivation of the governing equations is based on balance laws. To keep things short, not every single step of their derivation but more likely their results are presented here. Microforce balance laws are assumed to model the phase-field's evolution within a large deformation setting. The balances of linear and angular momentum in the reference configuration lead to (also see $\eqref{eq:stress_equil}_{1}$)
 \begin{equation} \label{eq:lin_mom_ang_mom}
 	\begin{aligned}
 		Div\left(\mathbf{P}\right)+\mathbf{B}&=\rho_{0}\ddot{\mathbf{U}}, \\
 		\bm{\sigma} &= \bm{\sigma}^{T}
 	\end{aligned}
 \end{equation}
-with $1^{st}$ Piola-Kirchhoff stress tensor $\mathbf{P}$, density $\rho_{0}$ in the reference configuration and $Div\left(\cdot\right)$ denoting the divergence in the reference configuration. Analogous to this balance law, assuming an internal microforce $\pi\left(\mathbf{x},t\right)\in\mathbb{R}$, an external microforce $l\left(\mathbf{x},t\right)\in\mathbb{R}$ acting on the body and an external microforce $\lambda\left(\mathbf{x},t\right)=\bm{\xi}\cdot\mathbf{N}$ acting on the surface (with microforce traction vector $\bm{\xi}\left(\mathbf{x},t\right)\in\mathbb{R}^{d}$), the microforce balance leads to
+with $1^{st}$ Piola-Kirchhoff stress tensor $\mathbf{P}$, density $\rho_{0}$ in the reference configuration and $Div\left(\cdot\right)$ denoting the divergence in the reference configuration. In analogy to this balance law, assuming an internal microforce $\pi\left(\mathbf{x},t\right)\in\mathbb{R}$, an external microforce $l\left(\mathbf{x},t\right)\in\mathbb{R}$ acting on the body and an external microforce $\lambda\left(\mathbf{x},t\right)=\bm{\xi}\cdot\mathbf{N}$ acting on the surface (with microforce traction vector $\bm{\xi}\left(\mathbf{x},t\right)\in\mathbb{R}^{d}$), the microforce balance leads to
 \begin{equation} \label{eq:microforce_balance}
 	Div\left(\bm{\xi}\right)+\pi+l=0.
 \end{equation}
@@ -53,7 +53,7 @@ where $\dot{c}$ is found to be the work conjugate of the microforces. The second
 \begin{equation} \label{eq:entropy_balance_tmp}
 	\Theta\dot{s}\geq0
 \end{equation}
-with entropy per unit volume $s$ and absolute temperature $\Theta$. Note that heat fluxes and heat sources are not considered here (isothermal and adiabatic process). Using the dissipation inequality $e_{0}=\Psi+\Theta  s$ (see Legendre transformation), \eqref{eq:entropy_balance_tmp} can be rewritten as
+with $s$ denoting the entropy per unit volume and $\Theta$ being the absolute temperature. Note that heat fluxes and heat sources are not considered here (isothermal and adiabatic process). Using the dissipation inequality $e_{0}=\Psi+\Theta  s$ (see Legendre transformation), \eqref{eq:entropy_balance_tmp} can be rewritten as
 \begin{equation} \label{eq:entropy_balance}
 	\dot{\Psi}\leq\dot{e}_{0}
 \end{equation}
@@ -115,15 +115,15 @@ Setting $l=0$ and $\beta=0$ leads to the governing equations. The stress equilib
 		\dot{\mathbf{U}} &= \mathbf{V}_{0} && \quad\text{on } \Omega_{0}\times0
   \end{alignedat}\right.
 \end{equation}
-with Piola-Kirchhoff traction vector $\mathbf{T}=\mathbf{P}\mathbf{N}$. Considering the second-order phase-field theory and inserting the two partial derivatives $\frac{\partial\Psi}{\partial c_{,\mathbf{X}}}$ and $\frac{\partial\Psi}{\partial c}$ required in $\eqref{eq:balance_laws}_{2}$ with the help of \eqref{eq:Helmholtz_ductile2}, leads to following equation:
+with Piola-Kirchhoff traction vector $\mathbf{T}=\mathbf{P}\mathbf{N}$. Considering the second-order phase-field theory and inserting the two partial derivatives $\frac{\partial\Psi}{\partial c_{,\mathbf{X}}}$ and $\frac{\partial\Psi}{\partial c}$ required in $\eqref{eq:balance_laws}_{2}$ with the help of \eqref{eq:Helmholtz_ductile2}, leads to the following equation:
 \begin{equation} \label{eq:c2_ph_evolution_tmp}
 \dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(g'\left(c\right)\Psi^{+}+g_{p}'\left(c\right)\Psi_{p}\right) + c - 4l_{0}^{2}\Delta c = 1 \quad\text{on } \Omega\times\left(0,T\right).
 \end{equation}
-However, the irreversibility conditions outlined in \eqref{eq:KuhnTucker} have not been considered yet. Now, the history field is given by
+The irreversibility conditions outlined in \eqref{eq:KuhnTucker} have not been considered yet. The history field is given by
 \begin{equation} \label{eq:history_field_ductile}
 	\mathcal{H}\left(\mathbf{C},\mathbf{C}^{p}\right) = \max\limits_{\bar{t}\leq t} \Psi^{+}\left(\mathbf{C}\left(\bar{t}\right),\mathbf{C}^{p}\left(\bar{t}\right)\right).
 \end{equation}
-Having $\left<\cdot\right>$ defined as in \eqref{eq:spectr_decomp}, the term $\Psi_{p}$ in \eqref{eq:c2_ph_evolution_tmp} is replaced by $\left<\Psi_{p}-\Psi_{0}\right>$. Actually, $\Psi_{p}$ is already assumed to be monotonically increasing so that no additional constraints are necessary in order to enforce irreversibility crack growth caused by plastic deformation. However, \citet{03_PF_ductile} introduce the plastic work threshold $\Psi_{0}$ so as to have more control over the contribution of plastic deformation to crack growth. Thus, if $\Psi_{p}<\Psi_{0}$, there will be no contribution of plastic deformation to crack growth. This point can now be controlled easily. Furthermore, \citet{03_PF_ductile} introduce parameters $\beta_{e}\in\left[0,1\right]$ and $\beta_{p}\left[0,1\right]$ which can be used in order to weight the contributions from elastic strain energy and plastic work to crack growth. These modifications, \eqref{eq:c2_ph_evolution_tmp} and \eqref{eq:history_field_ductile} lead to the governing equations for the evolution of the phase-field considering ductile fracture and the second-order phase-field theory:
+Having $\left<\cdot\right>$ defined as in \eqref{eq:spectr_decomp}, the term $\Psi_{p}$ in \eqref{eq:c2_ph_evolution_tmp} is replaced by $\left<\Psi_{p}-\Psi_{0}\right>$. $\Psi_{p}$ is already assumed to be monotonically increasing so that no additional constraints are necessary in order to enforce irreversibility crack growth caused by plastic deformation. \citet{03_PF_ductile} introduce the plastic work threshold $\Psi_{0}$ so as to have more control over the contribution of plastic deformation to crack growth. Thus, if $\Psi_{p}<\Psi_{0}$, there will be no contribution of plastic deformation to crack growth. This point can now be controlled easily. Furthermore, \citet{03_PF_ductile} introduce parameters $\beta_{e}\in\left[0,1\right]$ and $\beta_{p}\left[0,1\right]$ which can be used in order to weight the contributions from elastic strain energy and plastic work to crack growth. These modifications, \eqref{eq:c2_ph_evolution_tmp} and \eqref{eq:history_field_ductile} lead to the governing equations for the evolution of the phase-field considering ductile fracture and the second-order phase-field theory:
 \begin{equation} \label{eq:c2_equil_ductile}
 	\left\{\begin{alignedat}{2}
 		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(\beta_{e}g'\left(c\right)\mathcal{H}+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right) + c - 4l_{0}^{2}\Delta c\ &= 1 && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
@@ -170,13 +170,13 @@ Inserting the Helmholtz free energy from \eqref{eq:Helmholtz_ductile2} for $n=4$
 		\dfrac{2l_{0}}{\mathcal{G}_{c}^{0}}\left(\beta_{e}g'\left(c\right)\mathcal{H}+\beta_{p}g_{p}'\left(c\right)\left<\Psi_{p}-\Psi_{0}\right>\right) + c - 2l_{0}^{2}\Delta c +l_{0}^{4}\Delta\left(\Delta c\right) &= 1 && \quad\text{on } \Omega_{0}\times\left(0,T\right) \\
 		\Delta c &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
 		\nabla\left(l_{0}^{4}\Delta c-2l_{0}^{2}c\right)\cdot\mathbf{N} &= 0 && \quad \text{on } \partial\Omega_{0}\times\left(0,T\right) \\
-c &= c_{0} && \quad \text{on } \Omega_{0}\times0  
+c &= c_{0} && \quad \text{on } \Omega_{0}\times0.
 	\end{alignedat}\right.
 \end{equation}
 Note that the threshold $\Psi_{0}$ has been added just as for the second-order phase-field theory (see \eqref{eq:c2_equil_ductile}). The boundary conditions on the phase-field result from the homogeneous natural boundary conditions arising from the derivation of the weak form \citep{11_PF_DissBorden}.
 
 \subsection{Weak and semidiscrete Galerkin form}
-Analogous to brittle fracture, the weak form for the second-order phase-field theory for ductile fracture can be derived. Considering the critical fracture energy density $\mathcal{G}_{c}=\frac{\mathcal{G}_{c}^{0}}{J}$ in the current configuration with Jacobian $J$, the system reads:
+In analogy to brittle fracture, the weak form for the second-order phase-field theory for ductile fracture can be derived. Considering the critical fracture energy density $\mathcal{G}_{c}=\frac{\mathcal{G}_{c}^{0}}{J}$ in the current configuration with Jacobian $J$, the system reads:
 
 \textbf{n=2:}$\quad$ Find $\mathbf{u}\left(t\right)\in\bm{\mathcal{S}}$ and $c\left(t\right)\in\tilde{\mathcal{S}}_{2},t\in\left[0,T\right]$ so that $\forall \mathbf{w}\in\bm{\mathcal{V}}$ and $\forall q\in\tilde{\mathcal{V}}_{2}$:
 \begin{equation} \label{eq:weak_2_ductile}
@@ -210,10 +210,8 @@ For the fourth-order phase-field theory, the weak form considering ductile fract
 \end{equation} 
 where $\Delta^{\mathbf{X}}$ refers to the Laplacian with respect to the reference configuration. Note that $\Delta^{\mathbf{X}}c=\sum_{i}c_{,ii}F_{ii}^{2}$ with $c_{,ii}$ denoting the second-order derivatives with respect to the current configuration. Thus, the weak form \eqref{eq:weak_4_ductile} and corresponding semidiscrete Galerkin form can be formulated in the current configuration.
 
-The semidiscrete Galerkin forms for both, the second-order and fourth-order model, can be analogously derived as for brittle fracture (see \secref{sec:weak_Gal_form}).
-
 \subsection{Residual vectors for the time integration scheme}
-Analogous to brittle fracture, for the second-order phase-field theory of ductile fracture, the residual vectors based on $\eqref{eq:weak_2_ductile}_{2}$ within the generalized-$\alpha$ scheme are given by
+In analogy to brittle fracture, for the second-order phase-field theory of ductile fracture, the residual vectors based on $\eqref{eq:weak_2_ductile}_{2}$ within the generalized-$\alpha$ scheme are given by
 \begin{equation} \label{eq:res_vecs_c2_ductile}
 	\begin{aligned}
 	\begin{alignedat}{2}
